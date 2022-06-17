@@ -1,5 +1,3 @@
-import {Request} from 'express'
-
 export interface TransactionDocument {
   id?:number,
   date:Date|string,
@@ -10,7 +8,3 @@ export interface TransactionDocument {
   type:"credit"|"debit",
 }
 
-
-export interface RequestTransaction extends Request{
-  body:TransactionDocument 
-}
