@@ -3,24 +3,17 @@
 }
 .layout-header{
     background:linear-gradient(90.23deg, #05EDE3 0.02%, #645FFB 99.63%);
-    height: 22.4rem;
+    padding-top: 2rem;
+    padding-bottom: 5rem;
     position: relative;
-    .header-container{
-        display: flex;
-        align-items: center;
-        margin: 4rem 0rem 0rem 10rem;
-        h1{
-            margin-left: 0.8rem;
-            color: white;
-        }
-    }
 }
+
 .layout-body{
     position: absolute;
     background-color: #ffffff;
-    top:12.4rem;
+    top:7.4rem;
     border-radius: 6rem 6rem 0rem 0rem;
     min-height: 100vh;
-    padding: 5.5rem;
+    padding: 3rem;
 
 }
