@@ -1,7 +1,7 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Layout from './components/layout';
-import SignIn from './components/signIn';
-import SignUp from './components/signUp';
+import SignIn from './features/User/signIn';
+import SignUp from './features/User/signUp';
 
 export default function Router() {
   return (
