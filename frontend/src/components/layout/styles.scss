@@ -3,10 +3,20 @@
 }
 .layout-header{
     background:linear-gradient(90.23deg, #05EDE3 0.02%, #645FFB 99.63%);
+    padding: 0rem 2rem;
     padding-top: 2rem;
     padding-bottom: 5rem;
     position: relative;
+
+
+    .navbar-brand{
+      color: #ffffff;
+      img{
+        margin-right: 1rem;
+      }
+    }
 }
+
 
 .layout-body{
     position: absolute;

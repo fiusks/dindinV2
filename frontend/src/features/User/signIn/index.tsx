@@ -1,3 +1,4 @@
+import './singIn.scss';
 export default function SignIn() {
   return (
     <>

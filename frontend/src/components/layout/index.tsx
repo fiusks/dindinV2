@@ -8,11 +8,11 @@ export default function Layout() {
     <Container fluid className="layout-container w-100">
       <Navbar bg="light" className="layout-header w-100">
         <Container fluid className="navbar-content">
-          <Navbar.Brand href="#home">
+          <Navbar.Brand as={Link} to="signUp">
             <img alt="app logo" src={logo} />
-            React Bootstrap
+            DinDin
           </Navbar.Brand>
-          <Nav className="me-auto">
+          <Nav>
             <Nav.Link as={Link} to="signIn">
               Sign In
             </Nav.Link>
