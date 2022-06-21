@@ -1,7 +1,7 @@
 import knexInstance from "../config/db.config";
 import { RequestHandler } from "express";
 import bcrypt from 'bcrypt'
-import { ISignUp,ISignIn, IUser } from "../models/users";
+import { ISignUp,ISignIn, IUserDB, UserDataResponse } from "../models/users";
 import jwt from 'jsonwebtoken'
 import { getErrorMessage } from "../utils/handleErrors";
 
@@ -35,7 +35,7 @@ export const signIn:RequestHandler = async(req,res)=>{
 
 
   try {
-    const userExist = await knexInstance("users").where({email}).first() as IUser
+    const userExist = await knexInstance("users").where({email}).first() as IUserDB
 
     if(!userExist){
       throw new Error("E-mail e/ou senha inválidos")
@@ -51,10 +51,13 @@ export const signIn:RequestHandler = async(req,res)=>{
 
     const token = jwt.sign({id},secret,{expiresIn:"1d"})
 
-    return res.status(200).json({
-      accessToken:token,
-      id,
-    })
+    const loginResponse = {
+      data:{
+        accessToken:token,
+        id
+    }} as UserDataResponse
+
+    return res.status(200).json(loginResponse)
 
   } catch (error) {
     return res.status(404).json({error:getErrorMessage(error)})
