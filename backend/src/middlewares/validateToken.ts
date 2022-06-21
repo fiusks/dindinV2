@@ -1,7 +1,10 @@
 import knexInstance from "../config/db.config";
 import { RequestHandler } from "express";
-import { IAccessToken } from "../models/users";
 import jwt from 'jsonwebtoken'
+
+interface IAccessToken{
+  id:number,
+}
 
 export const validateToken:RequestHandler = async(req,res,next)=>{
   const{authorization} = req.headers
