@@ -2,29 +2,54 @@ import './styles.scss';
 import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
 import logo from '../../assets/images/logo.svg';
 import { Outlet, Link } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { selectUser, userLogout } from '../../features/User/userSlice';
+import { ToastContainer } from 'react-toastify';
 
 export default function Layout() {
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+
   return (
     <Container fluid className="layout-container w-100">
       <Navbar bg="light" className="layout-header w-100">
         <Container fluid className="navbar-content">
-          <Navbar.Brand as={Link} to="signUp">
+          <Navbar.Brand as={Link} to="transactions">
             <img alt="app logo" src={logo} />
             DinDin
           </Navbar.Brand>
           <Nav>
-            <Nav.Link as={Link} to="signIn">
-              Sign In
-            </Nav.Link>
-            <Nav.Link as={Link} to="signUp">
-              Sign Up
-            </Nav.Link>
+            {!user.data.accessToken ? (
+              <>
+                <Nav.Link as={Link} to="signIn">
+                  Sign In
+                </Nav.Link>
+                <Nav.Link as={Link} to="signUp">
+                  Sign Up
+                </Nav.Link>
+              </>
+            ) : (
+              <Nav.Link as={Link} to="/" onClick={() => dispatch(userLogout())}>
+                Logout
+              </Nav.Link>
+            )}
           </Nav>
         </Container>
       </Navbar>
       <Row className="w-100 layout-body">
         <Col>
           <Outlet />
+          <ToastContainer
+            position="bottom-right"
+            autoClose={1800}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </Col>
       </Row>
     </Container>
