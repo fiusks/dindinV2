@@ -3,14 +3,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form } from 'react-bootstrap';
 import * as yup from 'yup';
-
-interface IUserRegistration {
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  confirmPassword?: string;
-}
+import {
+  UserRegistrationResponse,
+  IUserRegistration,
+} from '../../../types/users';
 
 const userRegistrationSchema = yup
   .object({
@@ -37,22 +33,27 @@ export default function SignUp() {
   } = useForm<IUserRegistration>({
     resolver: yupResolver(userRegistrationSchema),
   });
-  const fetchSignUp = async (payload: IUserRegistration) => {
-    return await fetch('http://localhost:3001/api/auth/signup', {
+  const fetchSignUp = async (
+    payload: IUserRegistration
+  ): Promise<UserRegistrationResponse> => {
+    const response = await fetch('http://localhost:3001/api/auth/signup', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
       },
       body: JSON.stringify(payload),
     });
+    const result: UserRegistrationResponse = await response.json();
+    return result;
   };
 
-  const onSubmit = async (data: IUserRegistration) => {
+  const onSubmit = (data: IUserRegistration) => {
     const { confirmPassword, ...payload } = data;
-    const { message } = await (await fetchSignUp(payload)).json();
-    setError{email:message}
-
-    console.log('n enviou');
+    fetchSignUp(payload).then((response) => {
+      if (response.error) {
+        setError('email', { message: response.error });
+      }
+    });
   };
 
   return (
