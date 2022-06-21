@@ -11,10 +11,13 @@ export default function Layout() {
   const dispatch = useAppDispatch();
 
   return (
-    <Container fluid className="layout-container w-100">
+    <Container fluid className="h-100 p-0">
       <Navbar bg="light" className="layout-header w-100">
         <Container fluid className="navbar-content">
-          <Navbar.Brand as={Link} to="transactions">
+          <Navbar.Brand
+            as={Link}
+            to={user.data.accessToken ? '/transactions' : '/'}
+          >
             <img alt="app logo" src={logo} />
             DinDin
           </Navbar.Brand>
@@ -36,7 +39,7 @@ export default function Layout() {
           </Nav>
         </Container>
       </Navbar>
-      <Row className="w-100 layout-body">
+      <Row className="w-100 layout-body mx-auto">
         <Col>
           <Outlet />
           <ToastContainer
