@@ -3,6 +3,7 @@ import { RequestHandler } from "express";
 import bcrypt from 'bcrypt'
 import { ISignUp,ISignIn, IUser } from "../models/users";
 import jwt from 'jsonwebtoken'
+import { getErrorMessage } from "../utils/handleErrors";
 
 export const signUp:RequestHandler =async (req,res) => {
   try{
@@ -11,7 +12,7 @@ export const signUp:RequestHandler =async (req,res) => {
         const userExist = await knexInstance('users').where({email}).first()
 
         if(userExist){
-         return res.status(404).json({message:"E-mail já cadastrado"})
+          throw new Error("E-mail já cadastrado")
         }
         const encryptedPassword = await bcrypt.hash(password,10)
 
@@ -21,9 +22,10 @@ export const signUp:RequestHandler =async (req,res) => {
 
         await knexInstance('users').insert(newUser)
 
-        return res.status(200).json({message:"New user registered"})
-    }catch(error){
-        return res.status(404).json({message:error})
+        return res.status(200).json({data:"New user registered"})
+    }catch(e){
+      return res.status(404).json({error:getErrorMessage(e)})
+
     }
 }
 
@@ -36,13 +38,13 @@ export const signIn:RequestHandler = async(req,res)=>{
     const userExist = await knexInstance("users").where({email}).first() as IUser
 
     if(!userExist){
-      return res.status(404).json({error:"E-mail e/ou senha inválidos"})
+      throw new Error("E-mail e/ou senha inválidos")
     }
 
     const validatePassword = await bcrypt.compare(password,userExist.password)
 
     if(!validatePassword){
-      return res.status(404).json({error:"E-mail e/ou senha inválidos"})
+      throw new Error("E-mail e/ou senha inválidos")
     }
 
     const {id} = userExist
@@ -52,11 +54,10 @@ export const signIn:RequestHandler = async(req,res)=>{
     return res.status(200).json({
       accessToken:token,
       id,
-      email,
     })
 
-  } catch (error:any) {
-    return res.status(400).json(error.message)
+  } catch (error) {
+    return res.status(404).json({error:getErrorMessage(error)})
 
   }
 }
