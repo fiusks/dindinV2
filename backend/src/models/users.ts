@@ -1,3 +1,5 @@
+import { IResponse } from "./api"
+
 export interface ISignUp {
     firstname:string,
     lastname:string,
@@ -10,9 +12,13 @@ export interface ISignIn {
   password:string
 }
 
-export interface IUser extends ISignUp{
+export interface IUserDB extends ISignUp{
   id:number
 }
-export interface IAccessToken{
-  id:number,
+
+interface IUserData {
+  id: number;
+  accessToken: string;
 }
+
+export type UserDataResponse = IResponse<IUserData>
