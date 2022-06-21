@@ -1,4 +1,4 @@
-import './singIn.scss';
+import '../userForm.scss';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form } from 'react-bootstrap';
@@ -50,7 +50,8 @@ export default function SignUp() {
   };
 
   return (
-    <>
+    <div className="form-container">
+      <h2>Login</h2>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>E-mail</Form.Label>
@@ -71,10 +72,10 @@ export default function SignUp() {
         </Form.Group>
         <div className="form-group">
           <button type="submit" className="btn btn-primary">
-            Registrar
+            Acessar
           </button>
         </div>
       </Form>
-    </>
+    </div>
   );
 }

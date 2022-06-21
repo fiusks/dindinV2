@@ -1,4 +1,4 @@
-import './singUp.scss';
+import '../userForm.scss';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form } from 'react-bootstrap';
@@ -57,59 +57,64 @@ export default function SignUp() {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Nome</Form.Label>
-        <input
-          type="text"
-          {...register('firstname')}
-          className={`form-control ${errors.firstname ? 'is-invalid' : ''}`}
-        />
-        <Form.Text>{errors.firstname?.message}</Form.Text>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Sobrenome</Form.Label>
-        <input
-          type="text"
-          {...register('lastname')}
-          className={`form-control ${errors.lastname ? 'is-invalid' : ''}`}
-        />
-        <Form.Text>{errors.lastname?.message}</Form.Text>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>E-mail</Form.Label>
-        <input
-          type="text"
-          {...register('email')}
-          className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-        />
-        <Form.Text>{errors.email?.message}</Form.Text>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Senha</Form.Label>
-        <input
-          type="password"
-          {...register('password')}
-          className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-        />
-        <Form.Text>{errors.password?.message}</Form.Text>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Confirmar Senha</Form.Label>
-        <input
-          type="password"
-          {...register('confirmPassword')}
-          className={`form-control ${
-            errors.confirmPassword ? 'is-invalid' : ''
-          }`}
-        />
-        <Form.Text>{errors.confirmPassword?.message}</Form.Text>
-      </Form.Group>
-      <div className="form-group">
-        <button type="submit" className="btn btn-primary">
-          Registrar
-        </button>
+    <>
+      <div className="form-container">
+        <h2>Novo usuário</h2>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Nome</Form.Label>
+            <input
+              type="text"
+              {...register('firstname')}
+              className={`form-control ${errors.firstname ? 'is-invalid' : ''}`}
+            />
+            <Form.Text>{errors.firstname?.message}</Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Sobrenome</Form.Label>
+            <input
+              type="text"
+              {...register('lastname')}
+              className={`form-control ${errors.lastname ? 'is-invalid' : ''}`}
+            />
+            <Form.Text>{errors.lastname?.message}</Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>E-mail</Form.Label>
+            <input
+              type="text"
+              {...register('email')}
+              className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+            />
+            <Form.Text>{errors.email?.message}</Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Senha</Form.Label>
+            <input
+              type="password"
+              {...register('password')}
+              className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+            />
+            <Form.Text>{errors.password?.message}</Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Confirmar Senha</Form.Label>
+            <input
+              type="password"
+              {...register('confirmPassword')}
+              className={`form-control ${
+                errors.confirmPassword ? 'is-invalid' : ''
+              }`}
+            />
+            <Form.Text>{errors.confirmPassword?.message}</Form.Text>
+          </Form.Group>
+          <div className="form-group">
+            <button type="submit" className="btn btn-primary">
+              Registrar
+            </button>
+          </div>
+        </Form>
       </div>
-    </Form>
+    </>
   );
 }

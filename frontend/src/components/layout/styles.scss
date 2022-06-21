@@ -1,11 +1,11 @@
-.layout-container{
-    min-height: 100vh;
+.layout-containers{
+    height: 100%;
 }
 .layout-header{
     background:linear-gradient(90.23deg, #05EDE3 0.02%, #645FFB 99.63%);
     padding: 0rem 2rem;
     padding-top: 2rem;
-    padding-bottom: 5rem;
+    padding-bottom: 8rem;
     position: relative;
 
 
@@ -23,7 +23,6 @@
     background-color: #ffffff;
     top:7.4rem;
     border-radius: 6rem 6rem 0rem 0rem;
-    min-height: 100vh;
+    height: calc(100vh - 8rem);
     padding: 3rem;
-
 }
