@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import {
-  IUserData,
   IUserLoginError,
   UserDataResponse,
   UserLogin,
@@ -13,7 +12,7 @@ const initialState: UserDataResponse = {
 };
 
 export const userLogin = createAsyncThunk<
-  IUserData,
+  UserDataResponse,
   UserLogin,
   {
     rejectValue: IUserLoginError;
@@ -29,7 +28,7 @@ export const userLogin = createAsyncThunk<
   if (response.status === 404) {
     return thunkApi.rejectWithValue((await response.json()) as IUserLoginError);
   }
-  return (await response.json()) as IUserData;
+  return (await response.json()) as UserDataResponse;
 });
 
 export const userSlice = createSlice({
@@ -44,13 +43,15 @@ export const userSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(userLogin.fulfilled, (state, { payload }) => {
       state.error = null;
-      const { id, accessToken } = payload;
+      console.log(payload, 'pay');
+      const { id, accessToken } = payload.data;
       if (id && accessToken) {
         state.data.id = id;
         state.data.accessToken = accessToken;
       }
     });
     builder.addCase(userLogin.rejected, (state, action) => {
+      console.log('erro?');
       if (action.payload?.error) {
         state.error = action.payload.error;
       }
