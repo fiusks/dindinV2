@@ -46,7 +46,6 @@ export default function SignUp() {
         setError('email', { message: erroMessage });
       }
     }
-    console.log(user.data.accessToken, 'access');
   };
 
   return (
