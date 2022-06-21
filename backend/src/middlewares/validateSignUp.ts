@@ -16,7 +16,11 @@ export const validateSignUp: RequestHandler = async (req, res, next) => {
             abortEarly: false
         })
         next()
+
     } catch (error: any) {
+      /*erro nunca chega no front por conta da validação do front. O front não
+      está desestruturando para receber o erro corretamente*/
+
         const newError = new ValidationError(error)
         const errorList: Record<string, string> = {};
 
