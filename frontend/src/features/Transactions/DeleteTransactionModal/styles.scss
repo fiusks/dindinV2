@@ -1,0 +1,43 @@
+.delete-icon{
+   position: relative;
+   display: inline-block;
+}
+.delete-modal-container{
+  background: #E4F2FD;
+  border-radius: 4px;
+  position: absolute;
+  top:17rem;
+  z-index: 2;
+  width: 12rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  p{
+    margin-top: 0.7rem;
+  }
+  .buttons-container{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 0.8rem;
+    button{
+      all:unset;
+      color:#FFF;
+      cursor: pointer;
+      width: 3.7rem;
+      padding: 0rem;
+      border-radius: 0.4rem;
+      &.accept-btn{
+        background: #3A9FF1;
+      }
+      &.reject-btn{
+        background: #FF576B;
+      }
+
+    }
+  }
+  img{
+    position: absolute;
+    top:-5px;
+    z-index: -1;
+  }
+}
