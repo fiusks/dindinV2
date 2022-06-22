@@ -1,13 +1,32 @@
 .layout-containers{
     height: 100%;
 }
+
+  .nav-link{
+    &a{
+      color: #ffffff;
+    }
+}
 .layout-header{
     background:linear-gradient(90.23deg, #05EDE3 0.02%, #645FFB 99.63%);
-    padding: 0rem 2rem;
-    padding-top: 2rem;
-    padding-bottom: 8rem;
-    position: relative;
+    padding: 0rem 6rem;
+    &.navbar{
+      padding-top: 3rem;
+      padding-bottom: 8rem;
+    }
+    .navbar-content{
+      .navbar-brand{
+        font-size: 2.5rem;
+        color: #ffffff;
+        }
+      .navbar-nav{
+        .nav-link{
+          color: #ffffff;
+          font-size: 2rem;
+        }
+      }
 
+    }
 
     .navbar-brand{
       color: #ffffff;
@@ -21,8 +40,8 @@
 .layout-body{
     position: absolute;
     background-color: #ffffff;
-    top:7.4rem;
+    top:11rem;
     border-radius: 6rem 6rem 0rem 0rem;
     height: calc(100vh - 8rem);
-    padding: 3rem;
+    padding: 6rem;
 }
