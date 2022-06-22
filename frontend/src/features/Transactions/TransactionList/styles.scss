@@ -1,0 +1,50 @@
+@import '../../../assets/sass/fonts.scss';
+
+.table{
+  margin-top: 3rem;
+  line-height: 5.8rem;
+  vertical-align: middle;
+  text-align: center;
+
+  font-family: $secondary-font;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 17px;
+  thead{
+    background: #FAFAFA;
+    box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: 6rem;
+    vertical-align: middle;
+    th{
+      font-weight: 700;
+    }
+  }
+  tbody{
+    tr{
+      border-bottom: 1px solid #E0E0E0;
+    }
+    td{
+      font-weight: 400;
+      &.table-date{
+        font-weight: 700;
+      }
+      &.credit{
+        color: #7B61FF;
+      }
+      &.debit{
+        color:#FA8C10;
+      }
+      border-top:none;
+    }
+  }
+
+
+
+  .table-action-buttons{
+    img{
+      height: 2rem;
+      margin: 0.5rem;
+    }
+  }
+}
