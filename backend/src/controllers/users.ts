@@ -22,7 +22,7 @@ export const signUp:RequestHandler =async (req,res) => {
 
         await knexInstance('users').insert(newUser)
 
-        return res.status(200).json({data:"New user registered"})
+        return res.status(200).json({data:"Cadastro realizado com sucesso"})
     }catch(e){
       return res.status(404).json({error:getErrorMessage(e)})
 
