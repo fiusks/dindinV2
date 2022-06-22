@@ -43,15 +43,14 @@ export const userSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(userLogin.fulfilled, (state, { payload }) => {
       state.error = null;
-      console.log(payload, 'pay');
       const { id, accessToken } = payload.data;
+      localStorage.setItem('token', accessToken);
       if (id && accessToken) {
         state.data.id = id;
         state.data.accessToken = accessToken;
       }
     });
     builder.addCase(userLogin.rejected, (state, action) => {
-      console.log('erro?');
       if (action.payload?.error) {
         state.error = action.payload.error;
       }
