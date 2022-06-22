@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { listAllTransactions } from "../controllers/transactions";
+import { listAllTransactions,createTransaction,deleteTransaction,updateTransaction } from "../controllers/transactions";
+import { listFilteredTransactions } from "../controllers/filters";
 import { signIn, signUp } from "../controllers/users";
 import { validateSignUp } from "../middlewares/validateSignUp";
 import { validateToken } from "../middlewares/validateToken";
@@ -11,11 +12,11 @@ routes.post("/api/auth/signup",validateSignUp,signUp)
 routes.post("/api/auth/signin",signIn)
 
 routes.use(validateToken)
-routes.get('/transactions', listAllTransactions);
-// routes.post('/transactions', createTransaction);
-// routes.delete('/transactions/:id', deleteTransaction);
-// routes.put('/transactions/:id', updateTransaction);
-// routes.post('/filtertransactions',listFilteredTransactions)
+routes.get("/transactions", listAllTransactions);
+routes.post('/transactions', createTransaction);
+routes.delete('/transactions/:id', deleteTransaction);
+routes.put('/transactions/:id', updateTransaction);
+routes.post('/filtertransactions',listFilteredTransactions)
 
 
 
