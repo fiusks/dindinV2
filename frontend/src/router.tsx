@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/layout';
-import TransactionList from './features/Transactions/TransactionList';
 import SignIn from './features/User/signIn';
 import SignUp from './features/User/signUp';
 import PrivateRoute from './helpers/PrivateRoute';
 import Home from './features/Home';
+import Transactions from './features/Transactions/transactions';
 
 export default function Router() {
   return (
@@ -16,10 +16,7 @@ export default function Router() {
         <Route
           path="transactions"
           element={
-            <PrivateRoute
-              redirectPath="/signIn"
-              children={<TransactionList />}
-            />
+            <PrivateRoute redirectPath="/signIn" children={<Transactions />} />
           }
         />
       </Route>
