@@ -7,4 +7,13 @@ export interface TransactionDocument {
   category:string,
   type:"credit"|"debit",
 }
-
+export interface FilterData{
+  filterValue:string
+  isActive:boolean
+}
+export interface TransactionFilters{
+  categories:FilterData[]
+  minValue:number
+  maxValue:number
+  weekday:FilterData[]
+}
