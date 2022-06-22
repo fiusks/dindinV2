@@ -1,0 +1,74 @@
+.resume-component{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  .btn{
+    background: linear-gradient(91.26deg, #FA8C10 0%, #FF57D3 97.77%);
+    border-radius: 5px;
+    width: 80%;
+    padding: 2rem 0rem;
+    margin-top: 1.6rem;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+  }
+}
+.resume-container{
+  font-family: 'Rubik';
+  font-style: normal;
+  h3{
+
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 21px;
+    color: #2F2F2F;
+    margin-bottom: 2.3rem;
+  }
+  h4{
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.3rem;
+    line-height: 15px;
+    color: #2F2F2F;
+    margin-bottom: 1.2rem;
+    &.credit{
+      color: #645FFB;
+
+    }
+    &.debit{
+      color: #FA8C10;
+    }
+    &.balance{
+      font-weight: 700;
+      font-size: 1.4rem;
+      line-height: 17px;
+      color: #3A9FF1;
+
+    }
+    &.balance-value{
+      color: #3A9FF1;
+    }
+
+  }
+  display: flex;
+  flex-direction: column;
+  background: #FAFAFA;
+  box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 3rem;
+  width: 80%;
+  .balance-row{
+    margin-top: 1.7rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #EAEAEA;
+  }
+
+}
+
