@@ -8,6 +8,7 @@ import { transactionRegistration } from '../../../types/transactions';
 type Props = {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  title: string;
 };
 
 const transactionSchemaschema = yup
@@ -26,37 +27,54 @@ export default function TransactionModal(props: Props) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-    setError,
   } = useForm<transactionRegistration>({
+    defaultValues: {
+      type: 'credit',
+    },
     resolver: yupResolver(transactionSchemaschema),
   });
-  const { show, setShow } = props;
+  const { show, setShow, title } = props;
   const onSubmit = (data: transactionRegistration) => {
     console.log(data);
+    reset();
+  };
+  const onHide = () => {
+    setShow(false);
+    reset();
   };
 
   return (
     <>
-      <Modal
-        show={show}
-        onHide={() => setShow(false)}
-        backdrop="static"
-        keyboard={false}
-      >
+      <Modal show={show} onHide={onHide} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
-          <h2>{` Registro`}</h2>
+          <h2>{`${title} Registro`}</h2>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Type</Form.Label>
+            <div className="type-button">
               <input
-                type="text"
                 {...register('type')}
-                className={`form-control ${errors.type ? 'is-invalid' : ''}`}
+                type="radio"
+                name="type"
+                id="credit"
+                value="credit"
               />
-            </Form.Group>
+              <label htmlFor="credit" className="credit">
+                Entrada
+              </label>
+              <input
+                {...register('type')}
+                type="radio"
+                id="debit"
+                name="type"
+                value="debit"
+              />
+              <label htmlFor="debit" className="debit">
+                Saída
+              </label>
+            </div>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Valor</Form.Label>
               <input
@@ -80,7 +98,7 @@ export default function TransactionModal(props: Props) {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Data</Form.Label>
               <input
-                type="password"
+                type="date"
                 {...register('date')}
                 className={`form-control ${errors.date ? 'is-invalid' : ''}`}
               />
@@ -89,7 +107,7 @@ export default function TransactionModal(props: Props) {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Descrição</Form.Label>
               <input
-                type="password"
+                type="text"
                 {...register('description')}
                 className={`form-control ${
                   errors.description ? 'is-invalid' : ''
