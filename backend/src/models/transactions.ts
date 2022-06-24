@@ -1,5 +1,6 @@
 export interface TransactionDocument {
   id?:number,
+  user_id?:number,
   date:Date|string,
   weekday?:string,
   description:string,
