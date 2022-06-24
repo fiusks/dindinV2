@@ -30,8 +30,10 @@ export const listAllTransactions:RequestHandler = async (req, res)=> {
 export const createTransaction:RequestHandler = async (req, res)=> {
   try {
     const {date,description,amount,category,type} = req.body as TransactionDocument
+    const {id} =req.user!
 
     const newTransaction = {
+      user_id:id,
       date:new Date(date),
       description,
       amount:amount,
@@ -50,9 +52,12 @@ export const createTransaction:RequestHandler = async (req, res)=> {
 export const deleteTransaction:RequestHandler = async (req, res)=> {
   try {
 
+    const {id:user_id} = req.user!
     const { id }= req.params;
-    const deletedTransaction = await knexInstance("transactions").del().where('id',id)
-
+    console.log(user_id,'user')
+    console.log(id,'transaction id')
+    const deletedTransaction = await knexInstance("transactions").del().where('id',Number(id)).andWhere('user_id',user_id)
+    console.log('aqui')
     if(!deletedTransaction){
       throw new Error('Transação não existe')
     }
