@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { transactionRegistration } from '../../../types/transactions';
+import { useAppDispatch } from '../../../app/hooks';
+import { addTransaction } from '../transactionsSlice';
 
 type Props = {
   show: boolean;
@@ -24,6 +26,7 @@ const transactionSchemaschema = yup
   .required();
 
 export default function TransactionModal(props: Props) {
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -37,8 +40,9 @@ export default function TransactionModal(props: Props) {
   });
   const { show, setShow, title } = props;
   const onSubmit = (data: transactionRegistration) => {
-    console.log(data);
+    dispatch(addTransaction(data));
     reset();
+    setShow(false);
   };
   const onHide = () => {
     setShow(false);
