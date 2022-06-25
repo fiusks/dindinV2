@@ -1,9 +1,9 @@
 import { IResponse } from './api';
 
 export interface TransactionDocument {
-  id: string;
+  id?: string;
   date: string;
-  weekday: string;
+  weekday?: string;
   description: string;
   amount: string;
   category: string;
