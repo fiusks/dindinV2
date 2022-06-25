@@ -2,6 +2,7 @@ import './styles.scss';
 import { Row, Col } from 'react-bootstrap';
 import TransactionList from './TransactionList';
 import ResumeTransactions from './ResumeTransactions';
+import Filter from '../Filter';
 
 export default function Transactions() {
   return (
@@ -9,7 +10,9 @@ export default function Transactions() {
       <Row className="home-container">
         <Col>
           <Row>
-            <Col>Filter</Col>
+            <Col>
+              <Filter />
+            </Col>
           </Row>
           <Row>
             <Col>
