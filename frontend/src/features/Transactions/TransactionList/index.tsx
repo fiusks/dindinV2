@@ -6,6 +6,7 @@ import { Table } from 'react-bootstrap';
 import { TransactionDocument } from '../../../types/transactions';
 import { dateFormat, weekdayFormat } from '../../../helpers/stringFormat';
 import DeleteModal from '../DeleteTransactionModal';
+import EditTransaction from '../EditTransactionModal';
 
 export default function TransactionList() {
   const dispatch = useAppDispatch();
@@ -38,8 +39,8 @@ export default function TransactionList() {
               transaction.amount
             ).toFixed(2)}`}</td>
             <td className="table-action-buttons">
-              {/* <EditTransaction id={transaction.id!} /> */}
-              <DeleteModal id={Number(transaction.id!)} />
+              <EditTransaction id={transaction.id!} />
+              <DeleteModal id={transaction.id!} />
             </td>
           </tr>
         ))}
