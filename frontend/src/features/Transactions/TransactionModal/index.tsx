@@ -3,14 +3,20 @@ import { Modal, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { transactionRegistration } from '../../../types/transactions';
-import { useAppDispatch } from '../../../app/hooks';
-import { addTransaction } from '../transactionsSlice';
+import {
+  TransactionDocument,
+  transactionRegistration,
+} from '../../../types/transactions';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { selectTransactions } from '../transactionsSlice';
+import { addTransaction } from '../AddTransactionModal/addTransactionReducer';
+import { editTransaction } from '../EditTransactionModal/editTransactionReducer';
 
 type Props = {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
+  id?: string;
 };
 
 const transactionSchemaschema = yup
@@ -26,21 +32,38 @@ const transactionSchemaschema = yup
   .required();
 
 export default function TransactionModal(props: Props) {
+  const { show, setShow, title, id } = props;
+  let initialValues: Partial<transactionRegistration> = { type: 'credit' };
   const dispatch = useAppDispatch();
+
+  if (id) {
+    const transactions = useAppSelector(selectTransactions);
+    const editableTransaction = transactions.data.find(
+      (transaction) => transaction.id === props.id
+    );
+    const { id, weekday, ...transactionRegistration } = editableTransaction!;
+    initialValues = transactionRegistration;
+  }
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<transactionRegistration>({
-    defaultValues: {
-      type: 'credit',
-    },
+  } = useForm<TransactionDocument>({
+    defaultValues: initialValues,
     resolver: yupResolver(transactionSchemaschema),
   });
-  const { show, setShow, title } = props;
-  const onSubmit = (data: transactionRegistration) => {
-    dispatch(addTransaction(data));
+
+  const onSubmit = (data: TransactionDocument) => {
+    if (id) {
+      console.log('entrei');
+      console.log(data, 'antes do envio');
+      data.id = id;
+      dispatch(editTransaction(data));
+    } else {
+      dispatch(addTransaction(data));
+    }
+
     reset();
     setShow(false);
   };
