@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { ReponseTransactions } from '../../types/transactions';
 import { getToken } from '../../helpers/Auth/authHeader';
+
 const token = getToken();
 // interface ITransactionAPI {
 //   method: 'GET' | 'PUT' | 'DELETE';
