@@ -10,7 +10,6 @@ export const listAllTransactions:RequestHandler = async (req, res)=> {
     const id = req.user?.id
 
     if(!id){
-      console.log('deu merda')
      throw new Error('Operação não autorizada')
     }
 
@@ -54,10 +53,10 @@ export const deleteTransaction:RequestHandler = async (req, res)=> {
 
     const {id:user_id} = req.user!
     const { id }= req.params;
-    console.log(user_id,'user')
-    console.log(id,'transaction id')
+
+
     const deletedTransaction = await knexInstance("transactions").del().where('id',Number(id)).andWhere('user_id',user_id)
-    console.log('aqui')
+
     if(!deletedTransaction){
       throw new Error('Transação não existe')
     }
@@ -87,7 +86,6 @@ export const updateTransaction:RequestHandler = async (req, res)=> {
 
     return res.status(200).json({data:"Transação atualizada com sucesso"});
   } catch (error) {
-    console.log(error)
     return res.status(400).json("Falha ao atualizar a transação");
   }
 }
