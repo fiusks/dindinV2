@@ -3,10 +3,10 @@ import deleteIcon from '../../../assets/images/deleteIcon.svg';
 import arrowUp from '../../../assets/images/arrowUp.svg';
 import { useState } from 'react';
 import { useAppDispatch } from '../../../app/hooks';
-import { deleteTransactionById } from '../transactionsSlice';
+import { deleteTransactionById } from './deleteTransactionReducer';
 
 type Props = {
-  id: number;
+  id: string;
 };
 export default function DeleteModal({ id }: Props) {
   const dispatch = useAppDispatch();
@@ -15,7 +15,6 @@ export default function DeleteModal({ id }: Props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = () => {
-    console.log(id);
     dispatch(deleteTransactionById(id));
     handleClose();
   };
