@@ -1,10 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import {
-  ReponseTransactions,
-  TransactionDocument,
-  transactionRegistration,
-} from '../../types/transactions';
+import { ReponseTransactions } from '../../types/transactions';
 import { getToken } from '../../helpers/Auth/authHeader';
 const token = getToken();
 // interface ITransactionAPI {
@@ -47,63 +43,6 @@ export const transactionsList = createAsyncThunk<ReponseTransactions, void>(
     return (await response.json()) as ReponseTransactions;
   }
 );
-export const addTransaction = createAsyncThunk<
-  ReponseTransactions,
-  transactionRegistration
->('transactions/addTransaction', async (newTransaction, thunkAPI) => {
-  const response = await fetch('http://localhost:3001/transactions', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(newTransaction),
-  });
-  thunkAPI.dispatch(transactionsList());
-  return (await response.json()) as ReponseTransactions;
-});
-
-export const deleteTransactionById = createAsyncThunk<void, number>(
-  'transactions/deleteTransactionById',
-  async (id, thunkAPI) => {
-    const response = await fetch(`http://localhost:3001/transactions/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const responseDeletedTransaction =
-      (await response.json()) as ReponseTransactions;
-    thunkAPI.dispatch(deleteTransaction(responseDeletedTransaction));
-    thunkAPI.dispatch(transactionsList());
-  }
-);
-// export const editTransaction = createAsyncThunk<
-//   void,
-//   string,
-//   { state: RootState }
-// >('transactions/editTransaction', async (transactionID, thunkAPI) => {
-//   const { transactions } = thunkAPI.getState();
-//   const selectedTransaction = transactions.data.filter(
-//     (transaction) => transaction.id === transactionID
-//   );
-//   transactions.data = selectedTransaction;
-//   const { amount, category, date, description, id, type } =
-//     selectedTransaction[0];
-
-//   const response = await fetch(`http://localhost:3001/transaction/${id}`, {
-//     method: 'PUT',
-//     headers: {
-//       'content-type': 'application/json',
-//       Authorization: `Bearer ${token}`,
-//     },
-//     body: JSON.stringify({}),
-//   });
-//   const responseDeletedTransaction =
-//     (await response.json()) as ReponseTransactions;
-//   thunkAPI.dispatch(deleteTransaction(responseDeletedTransaction));
-// });
 
 export const transactionsSlice = createSlice({
   name: 'transactions',
