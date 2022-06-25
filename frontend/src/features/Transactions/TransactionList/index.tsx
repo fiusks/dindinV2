@@ -7,13 +7,19 @@ import { TransactionDocument } from '../../../types/transactions';
 import { dateFormat, weekdayFormat } from '../../../helpers/stringFormat';
 import DeleteModal from '../DeleteTransactionModal';
 import EditTransaction from '../EditTransactionModal';
+import { updateCategories } from '../../Filter/filtersSlice';
 
 export default function TransactionList() {
   const dispatch = useAppDispatch();
   const transactions = useAppSelector(selectTransactions);
 
   useEffect(() => {
-    dispatch(transactionsList());
+    dispatch(transactionsList()).then((transaction) => {
+      if (transaction.meta.requestStatus === 'fulfilled') {
+        console.log('entrei');
+        dispatch(updateCategories(transactions.data));
+      }
+    });
   }, []);
   return (
     <Table hover borderless responsive>
