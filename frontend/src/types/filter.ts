@@ -1,16 +1,17 @@
-import { Request } from 'express';
+import { IResponse } from './api';
 
 export interface IFiltersTransactions {
-  filterValue?: string;
+  filterName: string;
+  value?: string;
   state?: boolean;
+}
+export interface IFiltersUpdate extends IFiltersTransactions {
+  filterType: 'weekday' | 'categories' | 'minValue' | 'maxValue';
 }
 export interface IFilterOptions {
   weekday: IFiltersTransactions[];
   categories: IFiltersTransactions[];
-  minValue: string;
-  maxValue: string;
+  minValue: IFiltersTransactions[];
+  maxValue: IFiltersTransactions[];
 }
-
-export interface RequestFilter extends Request {
-  body: IFilterOptions;
-}
+export type ResponseFilters = IResponse<IFilterOptions>;
