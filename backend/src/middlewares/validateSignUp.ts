@@ -1,8 +1,9 @@
-import { object, SchemaOf, string, ValidationError } from 'yup';
-import { ISignUp } from '../models/users';
+import { number, object, SchemaOf, string, ValidationError } from 'yup';
+import { IUserData } from '../models/users';
 import { RequestHandler } from 'express';
 
-const userSignUpSchema: SchemaOf<ISignUp> = object().shape({
+const userSignUpSchema: SchemaOf<IUserData> = object().shape({
+    id:number(),
     firstname: string().required("O nome é obrigatório"),
     lastname: string().required('O sobrenome é obrigatório'),
     email: string().email('Inserir um e-mail válido').required('O e-mail é obrigatório'),
