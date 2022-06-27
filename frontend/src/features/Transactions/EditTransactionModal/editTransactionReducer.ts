@@ -4,7 +4,7 @@ import {
   TransactionDocument,
 } from '../../../types/transactions';
 import { getToken } from '../../../helpers/Auth/authHeader';
-import { transactionsList } from '../transactionsSlice';
+import { updateTransaction } from '../transactionsSlice';
 const token = getToken();
 
 export const editTransaction = createAsyncThunk<
@@ -23,7 +23,8 @@ export const editTransaction = createAsyncThunk<
     }
   );
   const { data } = (await response.json()) as ReponseTransactions;
+
   if (data) {
-    thunkAPI.dispatch(transactionsList());
+    thunkAPI.dispatch(updateTransaction(transaction));
   }
 });

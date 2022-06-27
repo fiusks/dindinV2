@@ -4,7 +4,7 @@ import TransactionModal from '../TransactionModal';
 import { useState } from 'react';
 
 type Props = {
-  id: string;
+  id: number;
 };
 
 export default function EditTransaction({ id }: Props) {
