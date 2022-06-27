@@ -9,14 +9,15 @@ import {
 } from '../../../types/transactions';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { selectTransactions } from '../transactionsSlice';
-import { addTransaction } from '../AddTransactionModal/addTransactionReducer';
+import { addTransactionAPI } from '../AddTransactionModal/addTransactionReducer';
 import { editTransaction } from '../EditTransactionModal/editTransactionReducer';
+import dayjs from 'dayjs';
 
 type Props = {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
-  id?: string;
+  id?: number;
 };
 
 const transactionSchemaschema = yup
@@ -41,7 +42,9 @@ export default function TransactionModal(props: Props) {
     const editableTransaction = transactions.data.find(
       (transaction) => transaction.id === props.id
     );
+
     const { id, weekday, ...transactionRegistration } = editableTransaction!;
+
     initialValues = transactionRegistration;
   }
   const {
@@ -55,13 +58,12 @@ export default function TransactionModal(props: Props) {
   });
 
   const onSubmit = (data: TransactionDocument) => {
+    data.date = dayjs(data.date).format('YYYY-MM-DD').toString();
     if (id) {
-      console.log('entrei');
-      console.log(data, 'antes do envio');
       data.id = id;
       dispatch(editTransaction(data));
     } else {
-      dispatch(addTransaction(data));
+      dispatch(addTransactionAPI(data));
     }
 
     reset();
