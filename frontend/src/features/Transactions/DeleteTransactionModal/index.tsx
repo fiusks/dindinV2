@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../../app/hooks';
 import { deleteTransactionById } from './deleteTransactionReducer';
 
 type Props = {
-  id: string;
+  id: number;
 };
 export default function DeleteModal({ id }: Props) {
   const dispatch = useAppDispatch();
