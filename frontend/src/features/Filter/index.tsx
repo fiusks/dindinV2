@@ -2,16 +2,29 @@ import './styles.scss';
 
 import { Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
+import { Form } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
 import filterIcon from '../../assets/images/filter-icon.svg';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { selectFilters, updateMaxMin } from './filtersSlice';
-import FilterElement from '../Filter/FilterElement';
+import { selectFilters, updateFilterState } from './filtersSlice';
+import { IActiveFilters } from '../../types/filter';
 
 export default function Filter() {
   const dispatch = useAppDispatch();
   const filters = useAppSelector(selectFilters);
   const [showFilter, setShowFilter] = useState(false);
-
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<IActiveFilters>();
+  const onSubmit = (data: IActiveFilters) => {
+    console.log(data, 'envio form');
+    dispatch(updateFilterState(data));
+  };
+  const weekdays = Object.keys(filters.weekday);
+  const categories = Object.keys(filters.categories);
   return (
     <Row>
       <Col>
@@ -25,12 +38,55 @@ export default function Filter() {
         {showFilter && (
           <Row className="filter-container">
             <Col md={3}>
-              <FilterElement
-                filterTitle="Dia da Semana"
-                filterList={filters.weekday}
-              />
+              <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form.Group className="groupweek">
+                  <Form.Label>Dias da Semana</Form.Label>
+                  {weekdays.map((day) => {
+                    return (
+                      <div key={day}>
+                        <Form.Label htmlFor={day}>{day}</Form.Label>
+                        <Form.Check
+                          type={'checkbox'}
+                          value={day}
+                          id={day}
+                          {...register('weekday')}
+                        />
+                      </div>
+                    );
+                  })}
+                </Form.Group>
+                <Form.Group className="groupCategory">
+                  <Form.Label>Categorias</Form.Label>
+                  {categories.map((category) => {
+                    return (
+                      <div key={category}>
+                        <Form.Label htmlFor={category}>{category}</Form.Label>
+                        <Form.Check
+                          type={'checkbox'}
+                          value={category}
+                          id={category}
+                          {...register('categories')}
+                        />
+                      </div>
+                    );
+                  })}
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label htmlFor="minValue">Min val</Form.Label>
+                  <input id="minValue" type="text" {...register('minValue')} />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label htmlFor="maxValue">Max val</Form.Label>
+                  <input id="maxValue" type="text" {...register('maxValue')} />
+                </Form.Group>
+                <div className="form-group">
+                  <button type="submit" className="btn btn-primary">
+                    Aplicar Filtro
+                  </button>
+                </div>
+              </Form>
             </Col>
-            <Col md={3}>
+            {/* <Col md={3}>
               <FilterElement
                 filterTitle="Categoria"
                 filterList={filters.categories}
@@ -70,7 +126,7 @@ export default function Filter() {
                 <button className="remove-filters-btn">Limpar Filtros</button>
                 <button className="apply-filters-btn">Aplicar Filtros</button>
               </div>
-            </Col>
+            </Col> */}
           </Row>
         )}
       </Col>
