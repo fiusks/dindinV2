@@ -7,43 +7,41 @@ import {
 } from '../../types/transactions';
 import { getToken } from '../../helpers/Auth/authHeader';
 import {
+  IActiveFilters,
   IFilterOptions,
   IFiltersTransactions,
-  IFiltersUpdate,
 } from '../../types/filter';
 import { firstLetterUppercase } from '../../helpers/stringFormat';
 const token = getToken();
 
 function filterUniqueCategory(
   transactions: TransactionDocument[]
-): IFiltersTransactions[] {
-  const filteredCategory = transactions
-    .map((category) => {
-      return category.category.toLowerCase();
-    })
+): IFiltersTransactions {
+  const filteredCategories: IFiltersTransactions = {};
+  transactions
+    .map((transaction) => transaction.category.toLowerCase())
     .filter((value, index, arr) => arr.indexOf(value.toLowerCase()) === index)
     .map((category) => {
-      return {
-        filterName: firstLetterUppercase(category),
-        state: false,
-      };
+      const categoryName = firstLetterUppercase(category);
+      filteredCategories[categoryName] = false;
+      return;
     });
-  return filteredCategory;
+  return filteredCategories;
 }
 
 const initialState: IFilterOptions = {
-  weekday: [
-    { filterName: 'Segunda', state: false },
-    { filterName: 'Terça', state: false },
-    { filterName: 'Quarta', state: false },
-    { filterName: 'Quinta', state: false },
-    { filterName: 'Sexta', state: false },
-    { filterName: 'Sábado', state: false },
-    { filterName: 'Domingo', state: false },
-  ],
-  categories: [],
-  minValue: [{ filterName: '', value: '', state: false }],
-  maxValue: [{ filterName: '', value: '', state: false }],
+  weekday: {
+    Segunda: false,
+    Terça: false,
+    Quarta: false,
+    Quinta: false,
+    Sexta: false,
+    Sábado: false,
+    Domingo: false,
+  },
+  categories: {},
+  minValue: '',
+  maxValue: '',
 };
 
 // export const filterTransactions = createAsyncThunk<
@@ -67,34 +65,39 @@ export const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    updateFilterState: (state, { payload }: PayloadAction<IFiltersUpdate>) => {
-      const filterType = payload.filterType;
-      const index = state[filterType].findIndex(
-        (filter) => filter.filterName === payload.filterName
-      );
-      state[filterType][index].state = !state[filterType][index].state;
+    updateFilterState: (state, { payload }: PayloadAction<IActiveFilters>) => {
+      const filters = Object.keys(payload);
+      filters.forEach((filterName) => {
+        if (filterName === 'minValue' || filterName === 'maxValue') {
+          payload[filterName]
+            ? (state[filterName] = payload[filterName])
+            : (state[filterName] = '');
+        }
+        if (filterName === 'weekday' || filterName === 'categories') {
+          const filterKeys = Object.keys(state[filterName]);
+          const filterPayload = payload[filterName];
+          if (filterPayload) {
+            filterKeys.forEach((filterStateValue) => {
+              const valor = filterPayload?.find(
+                (filterPayloadValue) => filterPayloadValue === filterStateValue
+              );
+              valor
+                ? (state[filterName][filterStateValue] = true)
+                : (state[filterName][filterStateValue] = false);
+            });
+          }
+        }
+      });
     },
     updateCategories: (
       state,
       { payload }: PayloadAction<TransactionDocument[]>
     ) => {
-      const categories = filterUniqueCategory(payload);
-      state.categories = categories;
-    },
-    updateMaxMin: (state, { payload }: PayloadAction<IFiltersTransactions>) => {
-      if (
-        payload.filterName === 'minValue' ||
-        payload.filterName === 'maxValue'
-      ) {
-        const updateElement = state[payload.filterName][0];
-        updateElement.value = payload.value;
-        updateElement.state = !updateElement.state;
-      }
+      state.categories = filterUniqueCategory(payload);
     },
   },
 });
 
-export const { updateFilterState, updateCategories, updateMaxMin } =
-  filtersSlice.actions;
+export const { updateFilterState, updateCategories } = filtersSlice.actions;
 export const selectFilters = (state: RootState) => state.filters;
 export default filtersSlice.reducer;
