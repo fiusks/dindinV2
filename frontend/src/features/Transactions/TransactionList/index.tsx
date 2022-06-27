@@ -1,12 +1,11 @@
 import './styles.scss';
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
+import { useAppSelector } from '../../../app/hooks';
 import { selectTransactions } from '../transactionsSlice';
 import { Table } from 'react-bootstrap';
 import { TransactionDocument } from '../../../types/transactions';
 import { dateFormat, weekdayFormat } from '../../../helpers/stringFormat';
 import DeleteModal from '../DeleteTransactionModal';
 import EditTransaction from '../EditTransactionModal';
-import { updateCategories } from '../../Filter/filtersSlice';
 
 export default function TransactionList() {
   const transactions = useAppSelector(selectTransactions);
@@ -35,8 +34,8 @@ export default function TransactionList() {
               transaction.amount
             ).toFixed(2)}`}</td>
             <td className="table-action-buttons">
-              <EditTransaction id={transaction.id!} />
-              <DeleteModal id={transaction.id!} />
+              <EditTransaction id={transaction.id} />
+              <DeleteModal id={transaction.id} />
             </td>
           </tr>
         ))}
