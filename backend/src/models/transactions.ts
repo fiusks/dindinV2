@@ -1,3 +1,5 @@
+import { IResponse } from "./api"
+
 export interface TransactionDocument {
   id?:number,
   user_id?:number,
@@ -18,3 +20,5 @@ export interface TransactionFilters{
   maxValue:number
   weekday:FilterData[]
 }
+
+export type TransactionResponse = IResponse<TransactionDocument[]>
