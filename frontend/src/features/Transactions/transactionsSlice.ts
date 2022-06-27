@@ -64,7 +64,7 @@ export const transactionsSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(transactionsList.fulfilled, (state, { payload }) => {
-      state.data = [...payload.data];
+      state.data = payload.data;
     });
   },
 });
