@@ -1,14 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  ReponseTransactions,
+  TransactionDocument,
   transactionRegistration,
 } from '../../../types/transactions';
 import { getToken } from '../../../helpers/Auth/authHeader';
-import { transactionsList } from '../transactionsSlice';
+import { addTransaction } from '../transactionsSlice';
+import { IResponse } from '../../../types/api';
 const token = getToken();
 
-export const addTransaction = createAsyncThunk<
-  ReponseTransactions,
+type ReponseTransactionID = IResponse<Pick<TransactionDocument, 'id'>>;
+
+export const addTransactionAPI = createAsyncThunk<
+  void,
   transactionRegistration
 >('transactions/addTransaction', async (newTransaction, thunkAPI) => {
   const response = await fetch('http://localhost:3001/transactions', {
@@ -19,6 +22,12 @@ export const addTransaction = createAsyncThunk<
     },
     body: JSON.stringify(newTransaction),
   });
-  thunkAPI.dispatch(transactionsList());
-  return (await response.json()) as ReponseTransactions;
+  const {
+    data: { id },
+  }: ReponseTransactionID = await response.json();
+
+  if (id) {
+    const addedTransaction: TransactionDocument = { id, ...newTransaction };
+    thunkAPI.dispatch(addTransaction(addedTransaction));
+  }
 });
