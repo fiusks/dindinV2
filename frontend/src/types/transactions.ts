@@ -1,7 +1,7 @@
 import { IResponse } from './api';
 
 export interface TransactionDocument {
-  id?: string;
+  id: number;
   date: string;
   weekday?: string;
   description: string;
@@ -14,6 +14,7 @@ export type transactionRegistration = Omit<
   'id' | 'weekday'
 >;
 export type ReponseTransactions = IResponse<TransactionDocument[]>;
+
 export interface FilterData {
   filterValue: string;
   isActive: boolean;
