@@ -1,19 +1,21 @@
 import knexInstance from "../config/db.config";
 import { RequestHandler } from "express";
-import { TransactionDocument } from "../models/transactions";
+import { TransactionDocument, TransactionResponse } from "../models/transactions";
 import dayjs from "dayjs";
 import { getErrorMessage } from "../utils/handleErrors";
+import { IResponse } from "../models/api";
+
 
 
 export const listAllTransactions:RequestHandler = async (req, res)=> {
   try {
-    const id = req.user?.id
+    const {id:user_id} = req.user!
 
-    if(!id){
+    if(!user_id){
      throw new Error('Operação não autorizada')
     }
 
-    const transactions = await knexInstance("transactions").where('user_id',id) as TransactionDocument[]
+    const transactions:TransactionDocument[] = await knexInstance("transactions").where('user_id',user_id)
     transactions.map((transaction)=>{
      transaction.date=dayjs(transaction.date).format('YYYY-MM-DD').toString()
     })
@@ -27,12 +29,19 @@ export const listAllTransactions:RequestHandler = async (req, res)=> {
 }
 
 export const createTransaction:RequestHandler = async (req, res)=> {
+
+  interface ITransactionID{
+    id:number
+  }
+
+  type ResponseAddTransaction = IResponse<ITransactionID>
+
   try {
     const {date,description,amount,category,type} = req.body as TransactionDocument
-    const {id} =req.user!
+    const {id:user_id} =req.user!
 
     const newTransaction = {
-      user_id:id,
+      user_id,
       date:new Date(date),
       description,
       amount:amount,
@@ -40,28 +49,32 @@ export const createTransaction:RequestHandler = async (req, res)=> {
       type,
     }
 
-    await knexInstance("transactions").insert(newTransaction)
+    const [{id:transactionId}] = await knexInstance("transactions").insert(newTransaction).returning('id') as [ITransactionID]
 
-    return res.status(201).json({data:"Transação cadastrada com sucesso"});
+    const addTransactionResponse = {data:{id:transactionId}} as ResponseAddTransaction
+
+
+    return res.status(201).json(addTransactionResponse);
+
   } catch (error) {
     return res.status(404).json({error:getErrorMessage(error)})
   }
 }
 
 export const deleteTransaction:RequestHandler = async (req, res)=> {
+
   try {
 
     const {id:user_id} = req.user!
     const { id }= req.params;
 
-
-    const deletedTransaction = await knexInstance("transactions").del().where('id',Number(id)).andWhere('user_id',user_id)
+    const deletedTransaction = await knexInstance("transactions").delete().where('id',Number(id)).andWhere('user_id',user_id)
 
     if(!deletedTransaction){
       throw new Error('Transação não existe')
     }
 
-    return res.status(200).json({data:"Transação excluída com sucesso"});
+    return res.status(200).json({data:'Transação deletada com sucesso'});
   } catch (error) {
     return res.status(404).json({error:getErrorMessage(error)})
   }
@@ -73,19 +86,22 @@ export const updateTransaction:RequestHandler = async (req, res)=> {
 
     const {date,description,amount,category,type} = req.body as TransactionDocument
 
-    const updatedTransaction = {
-      date:date,
+    const newTransactionData = {
+      date,
       description,
-      amount:amount,
+      amount,
       category,
       type,
     }
 
-    await knexInstance("transactions").where({id}).update(updatedTransaction)
+    const updatedTransaction=await knexInstance("transactions").where({id}).update(newTransactionData)
 
+    if(!updatedTransaction){
+      throw new Error('Transação não existe')
+    }
 
     return res.status(200).json({data:"Transação atualizada com sucesso"});
   } catch (error) {
-    return res.status(400).json("Falha ao atualizar a transação");
+    return res.status(400).json({error:getErrorMessage(error)});
   }
 }
