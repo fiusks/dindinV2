@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { ReponseTransactions } from '../../types/transactions';
+import {
+  ReponseTransactions,
+  TransactionDocument,
+} from '../../types/transactions';
 import { getToken } from '../../helpers/Auth/authHeader';
 
 const token = getToken();
@@ -49,17 +52,26 @@ export const transactionsSlice = createSlice({
   name: 'transactions',
   initialState,
   reducers: {
-    deleteTransaction: (
+    addTransaction: (
       state,
-      { payload }: PayloadAction<ReponseTransactions>
+      { payload }: PayloadAction<TransactionDocument>
     ) => {
-      if (!payload.error) {
-        state.error = payload.error;
-      } else {
-        state.data = state.data.filter(
-          (transaction) => transaction.id === payload.data[0].id
-        );
-      }
+      state.data = [...state.data, payload];
+    },
+    deleteTransaction: (state, { payload }: PayloadAction<{ id: number }>) => {
+      state.data = state.data.filter(
+        (transaction) => transaction.id !== payload.id
+      );
+    },
+    updateTransaction: (
+      state,
+      { payload }: PayloadAction<TransactionDocument>
+    ) => {
+      state.data.forEach((transaction, index) => {
+        if (transaction.id === payload.id) {
+          state.data[index] = payload;
+        }
+      });
     },
   },
   extraReducers(builder) {
@@ -69,6 +81,7 @@ export const transactionsSlice = createSlice({
   },
 });
 
-export const { deleteTransaction } = transactionsSlice.actions;
+export const { deleteTransaction, addTransaction, updateTransaction } =
+  transactionsSlice.actions;
 export const selectTransactions = (state: RootState) => state.transactions;
 export default transactionsSlice.reducer;
