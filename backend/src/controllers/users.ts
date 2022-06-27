@@ -1,13 +1,13 @@
 import knexInstance from "../config/db.config";
 import { RequestHandler } from "express";
 import bcrypt from 'bcrypt'
-import { ISignUp,ISignIn, IUserDB, UserDataResponse } from "../models/users";
+import { IUserLoginData, IUserData, UserLoginResponse } from "../models/users";
 import jwt from 'jsonwebtoken'
 import { getErrorMessage } from "../utils/handleErrors";
 
 export const signUp:RequestHandler =async (req,res) => {
   try{
-        const{firstname,lastname,email,password}=req.body as ISignUp
+        const{firstname,lastname,email,password}=req.body as IUserData
 
         const userExist = await knexInstance('users').where({email}).first()
 
@@ -30,32 +30,29 @@ export const signUp:RequestHandler =async (req,res) => {
 }
 
 export const signIn:RequestHandler = async(req,res)=>{
-  const {email,password} = req.body as ISignIn
+  const {email,password} = req.body as IUserLoginData
   const secret = process.env.JWT_SECRET!
 
-
   try {
-    const userExist = await knexInstance("users").where({email}).first() as IUserDB
+    const {id,password:passwordDB} = await knexInstance("users").where({email}).first() as IUserData
 
-    if(!userExist){
+    if(!id){
       throw new Error("E-mail e/ou senha inválidos")
     }
 
-    const validatePassword = await bcrypt.compare(password,userExist.password)
+    const validatePassword = await bcrypt.compare(password,passwordDB)
 
     if(!validatePassword){
       throw new Error("E-mail e/ou senha inválidos")
     }
 
-    const {id} = userExist
-
     const token = jwt.sign({id},secret,{expiresIn:"1d"})
 
-    const loginResponse = {
+    const loginResponse:UserLoginResponse = {
       data:{
         accessToken:token,
         id
-    }} as UserDataResponse
+    }}
 
     return res.status(200).json(loginResponse)
 
