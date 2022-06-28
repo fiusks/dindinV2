@@ -5,6 +5,7 @@ import {
   TransactionDocument,
 } from '../../types/transactions';
 import { getToken } from '../../helpers/Auth/authHeader';
+import { updateCategories } from '../Filter/filtersSlice';
 
 const token = getToken();
 // interface ITransactionAPI {
@@ -33,9 +34,9 @@ const initialState: ReponseTransactions = {
   error: null,
 };
 
-export const transactionsList = createAsyncThunk<ReponseTransactions, void>(
+export const transactionsList = createAsyncThunk<void, void>(
   'transactions/listTransactions',
-  async () => {
+  async (_, thunkAPI) => {
     const response = await fetch('http://localhost:3001/transactions', {
       method: 'GET',
       headers: {
@@ -43,8 +44,10 @@ export const transactionsList = createAsyncThunk<ReponseTransactions, void>(
         Authorization: `Bearer ${token}`,
       },
     });
-
-    return (await response.json()) as ReponseTransactions;
+    const transactionList = (await response.json()) as ReponseTransactions;
+    thunkAPI.dispatch(listTransactions(transactionList));
+    thunkAPI.dispatch(updateCategories(transactionList.data));
+    return;
   }
 );
 
@@ -52,6 +55,12 @@ export const transactionsSlice = createSlice({
   name: 'transactions',
   initialState,
   reducers: {
+    listTransactions: (
+      state,
+      { payload }: PayloadAction<ReponseTransactions>
+    ) => {
+      state.data = payload.data;
+    },
     addTransaction: (
       state,
       { payload }: PayloadAction<TransactionDocument>
@@ -74,14 +83,13 @@ export const transactionsSlice = createSlice({
       });
     },
   },
-  extraReducers(builder) {
-    builder.addCase(transactionsList.fulfilled, (state, { payload }) => {
-      state.data = payload.data;
-    });
-  },
 });
 
-export const { deleteTransaction, addTransaction, updateTransaction } =
-  transactionsSlice.actions;
+export const {
+  deleteTransaction,
+  addTransaction,
+  updateTransaction,
+  listTransactions,
+} = transactionsSlice.actions;
 export const selectTransactions = (state: RootState) => state.transactions;
 export default transactionsSlice.reducer;
