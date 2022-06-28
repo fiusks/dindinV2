@@ -4,8 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Form } from 'react-bootstrap';
 import * as yup from 'yup';
 import { UserLogin } from '../../../types/users';
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { selectUser, userLogin } from '../userSlice';
+import { useAppDispatch } from '../../../app/hooks';
+import { userLogin } from '../userSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,7 +21,6 @@ const userRegistrationSchema = yup
   .required();
 
 export default function SignUp() {
-  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
