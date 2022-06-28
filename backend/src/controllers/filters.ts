@@ -1,56 +1,40 @@
 import knexInstance from "../config/db.config";
 import { RequestHandler } from "express";
-import { TransactionDocument, TransactionFilters } from "../models/transactions";
-import dayjs from "dayjs";
+import { TransactionDocument, TransactionFilters, TransactionResponse } from "../models/transactions";
 import { getErrorMessage } from "../utils/handleErrors";
 
 
 export const listFilteredTransactions:RequestHandler = async (req,res)=>{
-
   try {
     const {categories,minValue,maxValue,weekday} = req.body as TransactionFilters
-    const statelessCategories = categories.map((category)=>category.filterValue)
 
-    let filteredList:TransactionDocument[] =[]
-    if(categories.length!==0){
-      if(minValue && maxValue){
-        filteredList = await knexInstance("transactions").whereIn('category',statelessCategories).andWhereBetween('amount',[minValue,maxValue])
-      }else if(minValue){
-        filteredList = await knexInstance("transactions").whereIn('category',statelessCategories).andWhere('amount',">",minValue)
-      }else if(maxValue){
-        filteredList = await knexInstance("transactions").whereIn('category',statelessCategories).andWhere('amount',"<",maxValue)
-      }else{
-
-        filteredList = await knexInstance("transactions").whereIn('category',statelessCategories)
+    await knexInstance('transactions').modify(function(querybuilder){
+      if(minValue){
+        querybuilder.andWhere('amount','>=',Number(minValue))
       }
-    }else{
-      if(minValue && maxValue){
-        filteredList = await knexInstance("transactions").whereBetween('amount',[minValue,maxValue])
-      }else if(minValue){
-        filteredList = await knexInstance("transactions").where('amount',">",minValue)
-      }else if(maxValue){
-        filteredList = await knexInstance("transactions").where('amount',"<",maxValue)
-      }else{
-        filteredList = await knexInstance("transactions")
+      if(maxValue){
+        querybuilder.andWhere('amount','<=',Number(maxValue))
       }
-    }
-
-    if(weekday.length!==0){
-      filteredList.map((transaction)=>{
-        transaction.weekday = new Date(transaction.date).toLocaleDateString('pt-BR',{weekday:"long"}).replace('-feira',"").toLowerCase()
-
+      if(categories){
+        querybuilder.whereIn('category',categories)
+      }
+      if(weekday){
+        const days = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta',"Sábado"]
+        let query=''
+        weekday.forEach((day)=>{
+          const index = days.indexOf(day)
+          if(index!==-1){
+            query=query+" "+index
+          }
       })
-
-      filteredList=filteredList.filter((transaction)=>{
-        return weekday.find((day)=>day.filterValue?.toLowerCase()===transaction.weekday)
+      query = query.trim().replace(" ",",")
+        querybuilder.andWhereRaw(` extract(dow from date + interval '3 hours') in (${query})`)
       }
-      )}
 
-      filteredList.map((transaction)=>{
-        transaction.date=dayjs(transaction.date).format('YYYY-MM-DD').toString()
-       })
-
-    return res.status(200).json(filteredList);
+    }).then(function(result:TransactionDocument[]){
+      const filteredList = {data:result} as TransactionResponse
+      return res.status(200).json(filteredList);
+    })
 
   } catch (error) {
     return res.status(404).json({error:getErrorMessage(error)})
