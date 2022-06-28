@@ -15,10 +15,10 @@ export interface FilterData{
   isActive:boolean
 }
 export interface TransactionFilters{
-  categories:FilterData[]
-  minValue:number
-  maxValue:number
-  weekday:FilterData[]
+  categories?:string[]
+  minValue?:number
+  maxValue?:number
+  weekday?:string[]
 }
 
 export type TransactionResponse = IResponse<TransactionDocument[]>
