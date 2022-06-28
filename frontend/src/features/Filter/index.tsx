@@ -6,25 +6,47 @@ import { Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import filterIcon from '../../assets/images/filter-icon.svg';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { selectFilters, updateFilterState } from './filtersSlice';
-import { IActiveFilters } from '../../types/filter';
+import { selectFilters, updateActiveFilters } from './filtersSlice';
+import { IActiveFilters, days } from '../../types/filter';
 
 export default function Filter() {
   const dispatch = useAppDispatch();
   const filters = useAppSelector(selectFilters);
   const [showFilter, setShowFilter] = useState(false);
+  const defaultValues = {
+    weekday: [],
+    categories: [],
+    minValue: '',
+    maxValue: '',
+  };
+
+  const weekdays: days[] = [
+    'Segunda',
+    'Terça',
+    'Quarta',
+    'Quinta',
+    'Sexta',
+    'Sábado',
+    'Domingo',
+  ];
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<IActiveFilters>();
+  } = useForm<IActiveFilters>({
+    defaultValues,
+  });
+
   const onSubmit = (data: IActiveFilters) => {
-    console.log(data, 'envio form');
-    dispatch(updateFilterState(data));
+    dispatch(updateActiveFilters(data));
   };
-  const weekdays = Object.keys(filters.weekday);
-  const categories = Object.keys(filters.categories);
+  const handleCleanFilters = () => {
+    reset();
+    dispatch(updateActiveFilters(defaultValues));
+  };
+
   return (
     <Row>
       <Col>
@@ -57,7 +79,7 @@ export default function Filter() {
                 </Form.Group>
                 <Form.Group className="groupCategory">
                   <Form.Label>Categorias</Form.Label>
-                  {categories.map((category) => {
+                  {filters.categories.map((category) => {
                     return (
                       <div key={category}>
                         <Form.Label htmlFor={category}>{category}</Form.Label>
@@ -81,7 +103,14 @@ export default function Filter() {
                 </Form.Group>
                 <div className="form-group">
                   <button type="submit" className="btn btn-primary">
-                    Aplicar Filtro
+                    Aplicar Filtros
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCleanFilters}
+                    className="btn btn-danger"
+                  >
+                    Limpar Filtros
                   </button>
                 </div>
               </Form>
