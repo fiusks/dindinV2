@@ -1,72 +1,169 @@
-.filter-btn{
-  all:unset;
-  background: #FAFAFA;
-  box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  color: black;
-  padding: 0.8rem 3rem;
-  font-size: 2rem;
-  text-align: center;
-  img{
-    margin-right: 0.5rem;
+@import "~bootstrap/scss/bootstrap";
+
+.filter-container{
+  font-size: 110%;
+  .filter-btn{
+    all:unset;
+    background: #FAFAFA;
+    box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    color: black;
+    padding: 0.8rem 0rem;
+    font-size: 2rem;
+    text-align: center;
+    img{
+      margin-right: 0.5rem;
+    }
+    width: 100%;
+
+    @include media-breakpoint-up(md){
+        width: auto;
+        padding: 0.8rem 2em;
+        margin-bottom: 2.7rem;
+    }
+  }
+
+  .filter-buttons-container{
+    padding: 1.5rem;
+    background: #FAFAFA;
+    box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+    .filter-form{
+      display: flex;
+      justify-content: space-between;
+
+      .filter-title{
+        margin-bottom: 2rem;
+        font-family: 'Rubik';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        color: #B9B9B9;
+      }
+      .checkbox-group{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items:flex-start;
+        max-height: 13rem;
+        gap:1rem;
+        margin-bottom: 1.5rem;
+        input{
+          &[type='checkbox']{
+            opacity: 0;
+            position: fixed;
+            width: 0;
+          }
+          &[type="checkbox"]:checked + label {
+            background: #7B61FF;
+            color: white;
+          }
+        }
+
+        label{
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          background: #fafafa;
+          box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+          border-radius: 10px;
+          padding: 0.4rem 0.8rem;
+          min-width: 8rem;
+          text-align: center;
+         span{
+          margin-left: 1.3rem;
+          }
+        }
+      }
+
+      .vertical-line{
+        border: 1px solid #EAEAEA;
+        margin: 0px 2rem 1.5rem 1rem;
+      }
+
+      .minMax-filter-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin-bottom: 3rem;
+        .minMax-group{
+          display: flex;
+
+          label{
+            margin-right:0.5rem;
+          }
+          input{
+            margin-right: 0.5rem;
+            width: 6.2rem;
+          }
+        }
+
+
+      }
+
+      .action-buttons-container{
+        display: flex;
+        justify-content: space-around;
+        padding: 0 2rem;
+
+        button{
+          all: unset;
+          cursor: pointer;
+          box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+          border-radius: 10px;
+          padding: 1rem 1.3rem;
+          margin-bottom: 1.5rem;
+
+          &.remove-filters-btn{
+            background: #FAFAFA;
+            color: black;
+          }
+
+          &.apply-filters-btn{
+            background: linear-gradient(264.83deg, #3A9FF1 -3.28%, #05EDE3 100%);
+            color: white;
+          }
+
+        }
+      }
+
+
+    }
   }
 }
 
-.filter-container{
-  margin-top: 2.5rem;
-  padding: 2.6rem;
-  height: 22rem;
-  background: #FAFAFA;
-  box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  .filters-action-btn{
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    align-items: flex-end;
+
+
+@include media-breakpoint-down(sm){
+
+  .filter-container{
+    font-size: 100%;
+  }
+}
+@include media-breakpoint-down(md){
+  .filter-form{
+    flex-direction: column;
+  }
+  .action-buttons-container{
     justify-content: center;
-    gap:1.6rem;
-
-    button{
-      all: unset;
-      cursor: pointer;
-      box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      padding: 1rem 1.3rem;
-
-      &.apply-filters-btn{
-        background: linear-gradient(264.83deg, #3A9FF1 -3.28%, #05EDE3 100%);
-        color: white;
-      }
-      &.remove-filters-btn{
-        background: #FAFAFA;
-        color: black;
-      }
-    }
   }
 
-  .filterByValue{
-    display: flex;
+}
+@include media-breakpoint-up(md){
+  .minMax-group{
     flex-direction: column;
-    h6{
-      font-family: 'Rubik';
-      font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 14px;
-
-      color: #B9B9B9;
-    }
-    .minMax-filter-container{
-      display: flex;
-      flex-direction: column;
-      label{
-        margin: 0.5rem 0rem;
-      }
-      input{
-        width: 6.2rem;
-      }
-    }
+  }
+  .action-buttons-container{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .action-buttons-container{
+    flex-direction: column;
+    height: 100%;
+    margin-left:2rem;
   }
 }
 
