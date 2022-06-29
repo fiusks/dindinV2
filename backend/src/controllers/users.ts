@@ -31,24 +31,25 @@ export const signUp:UserRegisterRequestHandler =async (req,res) => {
 export const signIn:UserLoginHandler = async(req,res)=>{
   const {email,password} = req.body
   const secret = process.env.JWT_SECRET!
-
+  console.log('entrei')
   try {
-    const {id,password:passwordDB} = await knexInstance("users").where({email}).first() as IUserData
+    const user = await knexInstance("users").where({email}).first() as IUserData
 
-    if(!id){
+    if(!user){
       throw new Error("E-mail e/ou senha inválidos")
     }
 
-    const validatePassword = await bcrypt.compare(password,passwordDB)
+    const validatePassword = await bcrypt.compare(password,user.password)
 
     if(!validatePassword){
       throw new Error("E-mail e/ou senha inválidos")
     }
 
-    const token = jwt.sign({id},secret,{expiresIn:"1d"})
+    const token = jwt.sign({id:user.id},secret,{expiresIn:"1d"})
 
     return res.status(200).json({data:{
-      accessToken:token,id
+      accessToken:token,
+      id:user.id!
     }})
 
   } catch (error) {
