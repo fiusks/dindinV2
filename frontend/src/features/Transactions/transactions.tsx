@@ -5,15 +5,17 @@ import ResumeTransactions from './ResumeTransactions';
 import Filter from '../Filter';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { transactionsList } from './transactionsSlice';
+import { selectTransactions, transactionsList } from './transactionsSlice';
 import {
   listFilteredTransactions,
   selectFilters,
+  updateCategories,
 } from '../Filter/filtersSlice';
 
 export default function Transactions() {
   const dispatch = useAppDispatch();
   const filters = useAppSelector(selectFilters);
+  const transactions = useAppSelector(selectTransactions);
 
   useEffect(() => {
     if (!Object.keys(filters.activeFilters).length) {
@@ -22,6 +24,10 @@ export default function Transactions() {
       dispatch(listFilteredTransactions());
     }
   }, [filters.activeFilters]);
+
+  useEffect(() => {
+    dispatch(updateCategories(transactions.data));
+  }, [transactions.data.length]);
 
   return (
     <Container fluid>
