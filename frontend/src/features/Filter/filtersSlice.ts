@@ -1,25 +1,17 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import {
-  ReponseTransactions,
-  TransactionDocument,
-} from '../../types/transactions';
+import { TransactionListResponse } from '../../types/transactions';
 import { getToken } from '../../helpers/Auth/authHeader';
 import { IActiveFilters, IFilterOptions } from '../../types/filter';
-import { firstLetterUppercase } from '../../helpers/stringFormat';
 import { listTransactions } from '../Transactions/transactionsSlice';
+import { IResponse } from '../../types/api';
 
 const token = getToken();
 
-function filterUniqueCategory(transactions: TransactionDocument[]): string[] {
-  const onlyCategories = transactions.map((transaction) =>
-    transaction.category.toLowerCase()
-  );
-  const uniqueCategories = Array.from(new Set(onlyCategories)).map(
-    (category) => (category = firstLetterUppercase(category))
-  );
+type ReponseTransactions = IResponse<TransactionListResponse>;
 
-  return uniqueCategories;
+function filterUniqueCategory(transactions: string[]): string[] {
+  return Array.from(new Set(transactions));
 }
 
 const initialState: IFilterOptions = {
@@ -44,9 +36,9 @@ export const listFilteredTransactions = createAsyncThunk<
       body: JSON.stringify(activeFilters),
     }
   );
-  const filteredTransactionList =
-    (await response.json()) as ReponseTransactions;
-  thunkAPI.dispatch(listTransactions(filteredTransactionList));
+  const { data } = (await response.json()) as ReponseTransactions;
+  thunkAPI.dispatch(listTransactions(data.transactions));
+  thunkAPI.dispatch(updateCategories(data.categories));
 });
 
 export const filtersSlice = createSlice({
@@ -55,10 +47,14 @@ export const filtersSlice = createSlice({
   reducers: {
     updateCategories: (
       state,
-      { payload }: PayloadAction<TransactionDocument[]>
+      { payload }: PayloadAction<string[] | string>
     ) => {
-      const transactionsCategories = filterUniqueCategory(payload);
-      state.categories = transactionsCategories;
+      if (typeof payload === 'string') {
+        const categories = [...state.categories, payload];
+        state.categories = filterUniqueCategory(categories);
+      } else {
+        state.categories = filterUniqueCategory(payload);
+      }
     },
     updateActiveFilters: (
       state,
