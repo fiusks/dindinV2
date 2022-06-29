@@ -7,13 +7,16 @@ const token = getToken();
 export const deleteTransactionById = createAsyncThunk<void, number>(
   'transactions/deleteTransactionById',
   async (id, thunkAPI) => {
-    const response = await fetch(`http://localhost:3001/transactions/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/transactions/${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const { data } = (await response.json()) as ReponseTransactions;
     if (data) {
       thunkAPI.dispatch(deleteTransaction({ id }));

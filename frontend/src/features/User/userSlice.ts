@@ -18,13 +18,16 @@ export const userLogin = createAsyncThunk<
     rejectValue: IUserLoginError;
   }
 >('user/userLogin', async (payload, thunkApi) => {
-  const response = await fetch('http://localhost:3001/api/auth/signin', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  });
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/api/auth/signin`,
+    {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    }
+  );
   if (response.status === 404) {
     return thunkApi.rejectWithValue((await response.json()) as IUserLoginError);
   }

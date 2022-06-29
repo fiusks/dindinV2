@@ -12,7 +12,7 @@ export const editTransaction = createAsyncThunk<
   Omit<TransactionDocument, 'weekday'>
 >('transactions/editTransaction', async (transaction, thunkAPI) => {
   const response = await fetch(
-    `http://localhost:3001/transactions/${transaction.id}`,
+    `${process.env.REACT_APP_BASE_URL}/transactions/${transaction.id}`,
     {
       method: 'PUT',
       headers: {

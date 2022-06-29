@@ -34,14 +34,17 @@ export const listFilteredTransactions = createAsyncThunk<
   { state: RootState }
 >('transactions/listFilteredTransactions', async (_, thunkAPI) => {
   const activeFilters = thunkAPI.getState().filters.activeFilters;
-  const response = await fetch('http://localhost:3001/filtertransactions', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(activeFilters),
-  });
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/filtertransactions`,
+    {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(activeFilters),
+    }
+  );
   const filteredTransactionList =
     (await response.json()) as ReponseTransactions;
   thunkAPI.dispatch(listTransactions(filteredTransactionList));

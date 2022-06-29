@@ -36,13 +36,16 @@ export default function SignUp() {
   const fetchSignUp = async (
     payload: IUserRegistration
   ): Promise<UserRegistrationResponse> => {
-    const response = await fetch('http://localhost:3001/api/auth/signup', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/api/auth/signup`,
+      {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      }
+    );
     const result: UserRegistrationResponse = await response.json();
     return result;
   };

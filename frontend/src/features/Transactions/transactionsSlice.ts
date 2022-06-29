@@ -37,13 +37,16 @@ const initialState: ReponseTransactions = {
 export const transactionsList = createAsyncThunk<void, void>(
   'transactions/listTransactions',
   async (_, thunkAPI) => {
-    const response = await fetch('http://localhost:3001/transactions', {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/transactions`,
+      {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const transactionList = (await response.json()) as ReponseTransactions;
     thunkAPI.dispatch(listTransactions(transactionList));
     thunkAPI.dispatch(updateCategories(transactionList.data));

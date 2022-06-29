@@ -14,14 +14,17 @@ export const addTransactionAPI = createAsyncThunk<
   void,
   transactionRegistration
 >('transactions/addTransaction', async (newTransaction, thunkAPI) => {
-  const response = await fetch('http://localhost:3001/transactions', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(newTransaction),
-  });
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/transactions`,
+    {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newTransaction),
+    }
+  );
   const {
     data: { id },
   }: ReponseTransactionID = await response.json();
