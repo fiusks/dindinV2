@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import {
-  ReponseTransactions,
   TransactionDocument,
+  TransactionListResponse,
 } from '../../types/transactions';
 import { getToken } from '../../helpers/Auth/authHeader';
 import { updateCategories } from '../Filter/filtersSlice';
+import { IResponse } from '../../types/api';
 
 const token = getToken();
 // interface ITransactionAPI {
@@ -29,12 +30,16 @@ const token = getToken();
 //   return (await response.json()) as ReponseTransactions;
 // };
 
-const initialState: ReponseTransactions = {
+interface transactionsReducer {
+  data: TransactionDocument[];
+}
+type ReponseTransactions = IResponse<TransactionListResponse>;
+
+const initialState: transactionsReducer = {
   data: [],
-  error: null,
 };
 
-export const transactionsList = createAsyncThunk<void, void>(
+export const transactionsList = createAsyncThunk(
   'transactions/listTransactions',
   async (_, thunkAPI) => {
     const response = await fetch(
@@ -47,9 +52,9 @@ export const transactionsList = createAsyncThunk<void, void>(
         },
       }
     );
-    const transactionList = (await response.json()) as ReponseTransactions;
-    thunkAPI.dispatch(listTransactions(transactionList));
-    thunkAPI.dispatch(updateCategories(transactionList.data));
+    const { data } = (await response.json()) as ReponseTransactions;
+    thunkAPI.dispatch(listTransactions(data.transactions));
+    thunkAPI.dispatch(updateCategories(data.categories));
     return;
   }
 );
@@ -60,9 +65,9 @@ export const transactionsSlice = createSlice({
   reducers: {
     listTransactions: (
       state,
-      { payload }: PayloadAction<ReponseTransactions>
+      { payload }: PayloadAction<TransactionDocument[]>
     ) => {
-      state.data = payload.data;
+      state.data = payload;
     },
     addTransaction: (
       state,
