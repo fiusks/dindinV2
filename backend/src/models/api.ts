@@ -1,4 +1,4 @@
 export interface IResponse<T> {
-  data: T;
+  data?: T;
   error?: string | null;
 }
