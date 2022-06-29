@@ -22,7 +22,6 @@ export const listAllTransactions:TransactionRequestHandler = async (req, res)=> 
     })
     const categories= transactions.map((transaction)=>transaction.category)
 
-
     return res.status(200).json({data:{transactions,categories}});
 
   } catch (error) {
@@ -47,8 +46,6 @@ export const createTransaction:TransactionRequestHandler = async (req, res)=> {
     }
 
     const [{id:transactionId}] = await knexInstance("transactions").insert(newTransaction).returning('id') as [ITransactionID]
-
-    const addTransactionResponse = {data:{id:transactionId}}
 
     return res.status(201).json({data:{
       id:transactionId
