@@ -29,5 +29,9 @@
     top:11rem;
     border-radius: 6rem 6rem 0rem 0rem;
     height: calc(100vh - 11rem);
-
+}
+@include media-breakpoint-up(lg){
+  .layout-body{
+    padding: 5rem;
+  }
 }
