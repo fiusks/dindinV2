@@ -1,5 +1,5 @@
 import './styles.scss';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import TransactionList from './TransactionList';
 import ResumeTransactions from './ResumeTransactions';
 import Filter from '../Filter';
@@ -24,24 +24,20 @@ export default function Transactions() {
   }, [filters.activeFilters]);
 
   return (
-    <>
-      <Row className="home-container">
-        <Col>
-          <Row>
-            <Col>
-              <Filter />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <TransactionList />
-            </Col>
-          </Row>
-        </Col>
-        <Col className="resume-col" md={12} lg={4} xl={4} xxl={3}>
+    <Container fluid>
+      <Row className="transactions-component-container">
+        <Col sm={12} md={12} lg={4} xl={3} xxl={3}>
           <ResumeTransactions />
         </Col>
+        <Col>
+          <Col>
+            <Filter />
+          </Col>
+          <Col>
+            <TransactionList />
+          </Col>
+        </Col>
       </Row>
-    </>
+    </Container>
   );
 }
