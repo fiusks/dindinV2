@@ -1,25 +1,25 @@
 import { IResponse } from './api';
 
 //User Registration types
-export interface IUserRegistration {
+export interface IUserData {
   firstname: string;
   lastname: string;
   email: string;
   password: string;
   confirmPassword?: string;
 }
-
-export type UserRegistrationResponse = IResponse<IUserRegistration>;
+type UserResponseMessage = 'Usuário cadastrado com sucesso';
+export type UserRegistrationResponse = IResponse<UserResponseMessage>;
 
 //User Login Types
-export type UserLogin = Pick<IUserRegistration, 'email' | 'password'>;
+export type IUserLoginData = Pick<IUserData, 'email' | 'password'>;
 
 export interface IUserLoginError {
   error: string;
 }
-export interface IUserData {
+interface IUserLoginResponseData {
   id: string;
   accessToken: string;
 }
 
-export type UserDataResponse = IResponse<IUserData>;
+export type UserDataResponse = IResponse<IUserLoginResponseData>;

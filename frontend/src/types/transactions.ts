@@ -1,5 +1,3 @@
-import { IResponse } from './api';
-
 export interface TransactionDocument {
   id: number;
   date: string;
@@ -13,15 +11,14 @@ export type transactionRegistration = Omit<
   TransactionDocument,
   'id' | 'weekday'
 >;
-export type ReponseTransactions = IResponse<TransactionDocument[]>;
 
-export interface FilterData {
-  filterValue: string;
-  isActive: boolean;
-}
-export interface TransactionFilters {
-  categories: FilterData[];
-  minValue: number;
-  maxValue: number;
-  weekday: FilterData[];
+export type ITransactionID = Pick<TransactionDocument, 'id'>;
+
+export type TransactionResponseMessage =
+  | 'Transação deletada com sucesso'
+  | 'Transação atualizada com sucesso';
+
+export interface TransactionListResponse {
+  transactions: TransactionDocument[];
+  categories: string[];
 }
