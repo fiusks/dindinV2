@@ -1,6 +1,9 @@
 .delete-modal-icon{
    position:relative;
-   display: inline-block
+   display: inline-block;
+   .delete-icon{
+    cursor: pointer;
+   }
 }
 .delete-modal-container{
   background: #E4F2FD;

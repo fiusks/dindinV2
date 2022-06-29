@@ -4,6 +4,7 @@
   font-size: 110%;
   .filter-btn{
     all:unset;
+    cursor: pointer;
     background: #FAFAFA;
     box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -72,6 +73,7 @@
           padding: 0.4rem 0.8rem;
           min-width: 8rem;
           text-align: center;
+          cursor: pointer;
          span{
           margin-left: 1.3rem;
           }

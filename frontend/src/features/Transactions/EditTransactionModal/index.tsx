@@ -13,7 +13,12 @@ export default function EditTransaction({ id }: Props) {
 
   return (
     <>
-      <img src={editIcon} alt="edit Icon" onClick={handleShow} />
+      <img
+        src={editIcon}
+        alt="edit Icon"
+        className="edit-icon"
+        onClick={handleShow}
+      />
       {show && (
         <TransactionModal
           show={show}

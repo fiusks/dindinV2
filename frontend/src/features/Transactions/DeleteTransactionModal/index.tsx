@@ -21,7 +21,12 @@ export default function DeleteModal({ id }: Props) {
 
   return (
     <div className="delete-modal-icon">
-      <img src={deleteIcon} alt="delete Icon" onClick={handleShow} />
+      <img
+        src={deleteIcon}
+        alt="delete Icon"
+        className="delete-icon"
+        onClick={handleShow}
+      />
 
       {show && (
         <div className="delete-modal-container">
