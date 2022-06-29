@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Form } from 'react-bootstrap';
 import * as yup from 'yup';
 import { UserRegistrationResponse, IUserData } from '../../../types/users';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const userRegistrationSchema = yup
   .object({
@@ -22,6 +24,7 @@ const userRegistrationSchema = yup
   .required();
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -52,6 +55,9 @@ export default function SignUp() {
     fetchSignUp(payload).then((response) => {
       if (response.error) {
         setError('email', { message: response.error });
+      } else {
+        navigate('/signin');
+        toast.success('Novo usuário cadastrado');
       }
     });
   };
