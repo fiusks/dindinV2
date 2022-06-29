@@ -7,20 +7,28 @@ import AddTransaction from '../AddTransactionModal';
 export default function ResumeTransactions() {
   const transactions = useAppSelector(selectTransactions);
   const resumeTransaction = () => {
-    const income = transactions.data.reduce(
-      (acc, transaction) =>
-        transaction.type === 'credit' ? acc + Number(transaction.amount) : acc,
-      0
-    );
-    const outcome = Math.abs(
-      transactions.data.reduce(
+    if (transactions.data?.length) {
+      const income = transactions.data.reduce(
         (acc, transaction) =>
-          transaction.type === 'debit' ? acc + Number(transaction.amount) : acc,
+          transaction.type === 'credit'
+            ? acc + Number(transaction.amount)
+            : acc,
         0
-      )
-    );
-    const balance = Number(income) - Number(outcome);
-    return { income, outcome, balance };
+      );
+      const outcome = Math.abs(
+        transactions.data.reduce(
+          (acc, transaction) =>
+            transaction.type === 'debit'
+              ? acc + Number(transaction.amount)
+              : acc,
+          0
+        )
+      );
+      const balance = Number(income) - Number(outcome);
+      return { income, outcome, balance };
+    } else {
+      return { income: 0, outcome: 0, balance: 0 };
+    }
   };
   const { income, outcome, balance } = resumeTransaction();
   return (
