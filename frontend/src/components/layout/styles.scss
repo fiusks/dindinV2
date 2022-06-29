@@ -21,6 +21,16 @@
         width: 2rem;
       }
     }
+    @include media-breakpoint-up(md){
+      padding-right: 6rem;
+      padding-left: 5rem;
+      .navbar-brand{
+        font-size: 3.5rem;
+      }
+      .navbar-nav>.nav-link{
+        font-size: 1.8rem;
+      }
+    }
 }
 
 .layout-body{
