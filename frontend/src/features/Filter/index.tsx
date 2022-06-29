@@ -1,6 +1,6 @@
 import './styles.scss';
 
-import { Row, Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
@@ -48,8 +48,8 @@ export default function Filter() {
   };
 
   return (
-    <Row>
-      <Col>
+    <div className="filter-container">
+      <div>
         <button
           className="filter-btn"
           onClick={() => setShowFilter(!showFilter)}
@@ -57,108 +57,83 @@ export default function Filter() {
           <img src={filterIcon} alt="filter icon" className="img-fluid" />
           Filtrar
         </button>
-        {showFilter && (
-          <Row className="filter-container">
-            <Col md={3}>
-              <Form onSubmit={handleSubmit(onSubmit)}>
-                <Form.Group className="groupweek">
-                  <Form.Label>Dias da Semana</Form.Label>
-                  {weekdays.map((day) => {
-                    return (
-                      <div key={day}>
-                        <Form.Label htmlFor={day}>{day}</Form.Label>
-                        <Form.Check
-                          type={'checkbox'}
-                          value={day}
-                          id={day}
-                          {...register('weekday')}
-                        />
-                      </div>
-                    );
-                  })}
-                </Form.Group>
-                <Form.Group className="groupCategory">
-                  <Form.Label>Categorias</Form.Label>
-                  {filters.categories.map((category) => {
-                    return (
-                      <div key={category}>
-                        <Form.Label htmlFor={category}>{category}</Form.Label>
-                        <Form.Check
-                          type={'checkbox'}
-                          value={category}
-                          id={category}
-                          {...register('categories')}
-                        />
-                      </div>
-                    );
-                  })}
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label htmlFor="minValue">Min val</Form.Label>
-                  <input id="minValue" type="text" {...register('minValue')} />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label htmlFor="maxValue">Max val</Form.Label>
-                  <input id="maxValue" type="text" {...register('maxValue')} />
-                </Form.Group>
-                <div className="form-group">
-                  <button type="submit" className="btn btn-primary">
-                    Aplicar Filtros
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleCleanFilters}
-                    className="btn btn-danger"
-                  >
-                    Limpar Filtros
-                  </button>
-                </div>
-              </Form>
-            </Col>
-            {/* <Col md={3}>
-              <FilterElement
-                filterTitle="Categoria"
-                filterList={filters.categories}
-              />
-            </Col>
-            <Col md={2} className="filterByValue">
-              <h6>Valor</h6>
-              <div className="minMax-filter-container">
-                <label>Min</label>
-                <input
-                  onChange={(e) =>
-                    dispatch(
-                      updateMaxMin({
-                        filterName: 'minValue',
-                        value: e.target.value,
-                      })
-                    )
-                  }
-                  value={filters.minValue[0].value!}
-                />
-                <label>Max</label>
-                <input
-                  onChange={(e) =>
-                    dispatch(
-                      updateMaxMin({
-                        filterName: 'maxValue',
-                        value: e.target.value,
-                      })
-                    )
-                  }
-                  value={filters.maxValue[0].value!}
-                />
-              </div>
-            </Col>
+      </div>
+      {showFilter && (
+        <div className="filter-buttons-container">
+          <Form onSubmit={handleSubmit(onSubmit)} className="filter-form">
             <Col>
-              <div className="filters-action-btn">
-                <button className="remove-filters-btn">Limpar Filtros</button>
-                <button className="apply-filters-btn">Aplicar Filtros</button>
-              </div>
-            </Col> */}
-          </Row>
-        )}
-      </Col>
-    </Row>
+              <Form.Label className="filter-title">Dias da Semana</Form.Label>
+              <Form.Group className="checkbox-group">
+                {weekdays.map((day) => {
+                  return (
+                    <div key={day} className="filters-btn">
+                      <input
+                        className="checkbox-hide-button"
+                        type={'checkbox'}
+                        value={day}
+                        id={day}
+                        {...register('weekday')}
+                      />
+                      <label htmlFor={day}>
+                        {day}
+                        <span>+</span>
+                      </label>
+                    </div>
+                  );
+                })}
+              </Form.Group>
+            </Col>
+            <div className="vertical-line" />
+            <Col>
+              <Form.Label className="filter-title">Categorias</Form.Label>
+              <Form.Group className="checkbox-group">
+                {filters.categories.map((category) => {
+                  return (
+                    <div key={category}>
+                      <input
+                        type={'checkbox'}
+                        value={category}
+                        id={category}
+                        {...register('categories')}
+                      />
+                      <label htmlFor={category}>
+                        {category}
+                        <span>+</span>
+                      </label>
+                    </div>
+                  );
+                })}
+              </Form.Group>
+            </Col>
+            <div className="vertical-line" />
+
+            <Col className="minMax-filter-container" md={1}>
+              <Form.Label className="filter-title">Valor</Form.Label>
+              <Form.Group className="minMax-group">
+                <Form.Label htmlFor="minValue">Min</Form.Label>
+                <input id="minValue" type="text" {...register('minValue')} />
+                <Form.Label htmlFor="maxValue">Max</Form.Label>
+                <input id="maxValue" type="text" {...register('maxValue')} />
+              </Form.Group>
+            </Col>
+
+            <Col md={2}>
+              <Form.Group className="action-buttons-container">
+                <button
+                  type="button"
+                  onClick={handleCleanFilters}
+                  className="remove-filters-btn"
+                >
+                  Limpar
+                </button>
+                <button type="submit" className="apply-filters-btn">
+                  Aplicar
+                </button>
+              </Form.Group>
+            </Col>
+          </Form>
+        </div>
+      )}
+    </div>
   );
 }
