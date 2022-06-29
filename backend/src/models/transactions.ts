@@ -1,4 +1,6 @@
 import { IResponse } from "./api"
+import { RequestHandler } from "express"
+import {ParamsDictionary} from 'express-serve-static-core'
 
 export interface TransactionDocument {
   id?:number,
@@ -10,15 +12,20 @@ export interface TransactionDocument {
   category:string,
   type:"credit"|"debit",
 }
-export interface FilterData{
-  filterValue:string
-  isActive:boolean
-}
-export interface TransactionFilters{
-  categories?:string[]
-  minValue?:number
-  maxValue?:number
-  weekday?:string[]
+
+export interface TransactionListResponse{
+  transactions:TransactionDocument[]
+  categories:string[]
 }
 
-export type TransactionResponse = IResponse<TransactionDocument[]>
+type TransactionResponseMessage = 'Transação deletada com sucesso'|'Transação atualizada com sucesso'
+type TransactionResponse=TransactionResponseMessage|ITransactionID|TransactionListResponse
+
+
+export type ITransactionID = Pick<TransactionDocument,'id'>
+
+export type TransactionRequestHandler = RequestHandler<
+ParamsDictionary,
+IResponse<TransactionResponse>,
+TransactionDocument>
+

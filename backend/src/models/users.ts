@@ -1,4 +1,9 @@
 import { IResponse } from "./api"
+import { RequestHandler } from "express";
+import {ParamsDictionary} from 'express-serve-static-core'
+
+export type UserResponseMessage ='Usuário cadastrado com sucesso'
+
 
 export interface IUserData {
     id?:number,
@@ -8,10 +13,7 @@ export interface IUserData {
     password:string
   }
 
-export interface IUserLoginData {
-  email:string,
-  password:string
-}
+export type IUserLoginData = Pick<IUserData, 'email' | 'password'>
 
 
 interface IUserLoginResponseData {
@@ -19,5 +21,11 @@ interface IUserLoginResponseData {
   accessToken: string;
 }
 
-export type UserLoginResponse = IResponse<IUserLoginResponseData>
-export type UserDataResponse = IResponse<IUserData>
+export type UserLoginHandler = RequestHandler<
+  ParamsDictionary,
+  IResponse<IUserLoginResponseData>,
+  IUserLoginData>
+
+export type UserRegisterRequestHandler = RequestHandler<ParamsDictionary,
+  IResponse<UserResponseMessage>,
+  IUserData>

@@ -1,13 +1,13 @@
 import knexInstance from "../config/db.config";
 import { RequestHandler } from "express";
-import { TransactionDocument, TransactionResponse } from "../models/transactions";
+import { TransactionDocument, TransactionRequestHandler,ITransactionID } from "../models/transactions";
 import dayjs from "dayjs";
 import { getErrorMessage } from "../utils/handleErrors";
-import { IResponse } from "../models/api";
 
 
 
-export const listAllTransactions:RequestHandler = async (req, res)=> {
+
+export const listAllTransactions:TransactionRequestHandler = async (req, res)=> {
   try {
     const {id:user_id} = req.user!
 
@@ -16,11 +16,14 @@ export const listAllTransactions:RequestHandler = async (req, res)=> {
     }
 
     const transactions:TransactionDocument[] = await knexInstance("transactions").where('user_id',user_id)
+
     transactions.map((transaction)=>{
      transaction.date=dayjs(transaction.date).format('YYYY-MM-DD').toString()
     })
+    const categories= transactions.map((transaction)=>transaction.category)
 
-    return res.status(200).json({data:transactions});
+
+    return res.status(200).json({data:{transactions,categories}});
 
   } catch (error) {
 
@@ -28,16 +31,10 @@ export const listAllTransactions:RequestHandler = async (req, res)=> {
   }
 }
 
-export const createTransaction:RequestHandler = async (req, res)=> {
-
-  interface ITransactionID{
-    id:number
-  }
-
-  type ResponseAddTransaction = IResponse<ITransactionID>
+export const createTransaction:TransactionRequestHandler = async (req, res)=> {
 
   try {
-    const {date,description,amount,category,type} = req.body as TransactionDocument
+    const {date,description,amount,category,type} = req.body
     const {id:user_id} =req.user!
 
     const newTransaction = {
@@ -51,20 +48,20 @@ export const createTransaction:RequestHandler = async (req, res)=> {
 
     const [{id:transactionId}] = await knexInstance("transactions").insert(newTransaction).returning('id') as [ITransactionID]
 
-    const addTransactionResponse = {data:{id:transactionId}} as ResponseAddTransaction
+    const addTransactionResponse = {data:{id:transactionId}}
 
-
-    return res.status(201).json(addTransactionResponse);
+    return res.status(201).json({data:{
+      id:transactionId
+    }});
 
   } catch (error) {
     return res.status(404).json({error:getErrorMessage(error)})
   }
 }
 
-export const deleteTransaction:RequestHandler = async (req, res)=> {
+export const deleteTransaction:TransactionRequestHandler = async (req, res)=> {
 
   try {
-
     const {id:user_id} = req.user!
     const { id }= req.params;
 
@@ -80,7 +77,7 @@ export const deleteTransaction:RequestHandler = async (req, res)=> {
   }
 }
 
-export const updateTransaction:RequestHandler = async (req, res)=> {
+export const updateTransaction:TransactionRequestHandler = async (req, res)=> {
   try {
     const { id } = req.params;
 

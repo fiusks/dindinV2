@@ -1,16 +1,16 @@
-import {Request} from 'express'
+import { RequestHandler } from 'express';
+import {ParamsDictionary} from 'express-serve-static-core'
+import { IResponse } from './api';
+import {TransactionListResponse} from './transactions'
 
-export interface IFiltersTransactions {
-    filterValue?: string;
-    state?: boolean;
+  export interface TransactionFilters{
+    categories?:string[]
+    minValue?:number
+    maxValue?:number
+    weekday?:string[]
   }
-  export interface IFilterOptions {
-    weekday: IFiltersTransactions[];
-    categories: IFiltersTransactions[];
-    minValue: string;
-    maxValue: string;
-  }
-  
-  export interface RequestFilter extends Request{
-    body:IFilterOptions
-  }
+
+  export type FilterResponse = RequestHandler<
+  ParamsDictionary,
+  IResponse<TransactionListResponse>,
+  TransactionFilters>

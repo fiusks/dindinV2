@@ -1,10 +1,10 @@
 import knexInstance from "../config/db.config";
-import { RequestHandler } from "express";
-import { TransactionDocument, TransactionFilters, TransactionResponse } from "../models/transactions";
+import { TransactionDocument } from "../models/transactions";
 import { getErrorMessage } from "../utils/handleErrors";
+import {TransactionFilters,FilterResponse}from "../models/filters"
 
 
-export const listFilteredTransactions:RequestHandler = async (req,res)=>{
+export const listFilteredTransactions:FilterResponse = async (req,res)=>{
   try {
     const {categories,minValue,maxValue,weekday} = req.body as TransactionFilters
 
@@ -32,8 +32,11 @@ export const listFilteredTransactions:RequestHandler = async (req,res)=>{
       }
 
     }).then(function(result:TransactionDocument[]){
-      const filteredList = {data:result} as TransactionResponse
-      return res.status(200).json(filteredList);
+      const categories = result.map((transaction)=>transaction.category)
+      return res.status(200).json({data:{
+        transactions:result,
+        categories
+      }});
     })
 
   } catch (error) {

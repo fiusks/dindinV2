@@ -1,15 +1,14 @@
 import knexInstance from "../config/db.config";
-import { RequestHandler } from "express";
 import bcrypt from 'bcrypt'
-import { IUserLoginData, IUserData, UserLoginResponse } from "../models/users";
 import jwt from 'jsonwebtoken'
 import { getErrorMessage } from "../utils/handleErrors";
+import { UserLoginHandler,UserRegisterRequestHandler,IUserData } from "../models/users";
 
-export const signUp:RequestHandler =async (req,res) => {
+export const signUp:UserRegisterRequestHandler =async (req,res) => {
   try{
-        const{firstname,lastname,email,password}=req.body as IUserData
+        const{firstname,lastname,email,password}=req.body
 
-        const userExist = await knexInstance('users').where({email}).first()
+        const userExist = await knexInstance('users').where({email}).first() as IUserData
 
         if(userExist){
           throw new Error("E-mail já cadastrado")
@@ -22,15 +21,15 @@ export const signUp:RequestHandler =async (req,res) => {
 
         await knexInstance('users').insert(newUser)
 
-        return res.status(200).json({data:"Cadastro realizado com sucesso"})
+        return res.status(200).json({data:"Usuário cadastrado com sucesso"})
     }catch(e){
       return res.status(404).json({error:getErrorMessage(e)})
 
     }
 }
 
-export const signIn:RequestHandler = async(req,res)=>{
-  const {email,password} = req.body as IUserLoginData
+export const signIn:UserLoginHandler = async(req,res)=>{
+  const {email,password} = req.body
   const secret = process.env.JWT_SECRET!
 
   try {
@@ -48,13 +47,9 @@ export const signIn:RequestHandler = async(req,res)=>{
 
     const token = jwt.sign({id},secret,{expiresIn:"1d"})
 
-    const loginResponse:UserLoginResponse = {
-      data:{
-        accessToken:token,
-        id
-    }}
-
-    return res.status(200).json(loginResponse)
+    return res.status(200).json({data:{
+      accessToken:token,id
+    }})
 
   } catch (error) {
     return res.status(404).json({error:getErrorMessage(error)})
