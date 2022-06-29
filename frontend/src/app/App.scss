@@ -6,5 +6,11 @@
     box-sizing: border-box;
   }
   #root .App {
-    height: 100vh;
+    min-height: 100vh;
   }
+  body{
+    &.modal-open {
+      padding-right: 0px !important;
+  }
+  }
+
