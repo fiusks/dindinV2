@@ -11,7 +11,7 @@ export default function TransactionList() {
   const transactions = useAppSelector(selectTransactions);
 
   return (
-    <Table hover borderless responsive>
+    <Table hover borderless>
       <thead>
         <tr>
           <th className="tHide">Data</th>

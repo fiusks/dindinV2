@@ -5,6 +5,7 @@
   line-height: 5.8rem;
   vertical-align: middle;
   text-align: center;
+  overflow: auto;
 
   font-family: $secondary-font;
   font-style: normal;
@@ -14,9 +15,9 @@
     background: #FAFAFA;
     box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    height: 6rem;
-    vertical-align: middle;
+    height: 5rem;
     th{
+      vertical-align: middle;
       font-weight: 700;
     }
   }
@@ -25,6 +26,7 @@
       border-bottom: 1px solid #E0E0E0;
     }
     td{
+      vertical-align: middle;
       font-weight: 400;
       &.table-date{
         font-weight: 700;
@@ -39,9 +41,8 @@
     }
   }
 
-
-
   .table-action-buttons{
+    display: flex;
     img{
       height: 2rem;
       margin: 0.5rem;
