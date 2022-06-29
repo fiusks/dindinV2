@@ -4,7 +4,7 @@ import {
   transactionRegistration,
 } from '../../../types/transactions';
 import { getToken } from '../../../helpers/Auth/authHeader';
-import { addTransaction } from '../transactionsSlice';
+import { transactionsList } from '../transactionsSlice';
 import { IResponse } from '../../../types/api';
 const token = getToken();
 
@@ -30,7 +30,6 @@ export const addTransactionAPI = createAsyncThunk<
   }: ReponseTransactionID = await response.json();
 
   if (id) {
-    const addedTransaction: TransactionDocument = { id, ...newTransaction };
-    thunkAPI.dispatch(addTransaction(addedTransaction));
+    thunkAPI.dispatch(transactionsList());
   }
 });

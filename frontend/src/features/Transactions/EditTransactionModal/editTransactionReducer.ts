@@ -1,11 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  ReponseTransactions,
   TransactionDocument,
+  TransactionResponseMessage,
 } from '../../../types/transactions';
 import { getToken } from '../../../helpers/Auth/authHeader';
-import { updateTransaction } from '../transactionsSlice';
+import { transactionsList } from '../transactionsSlice';
+import { IResponse } from '../../../types/api';
 const token = getToken();
+
+type ReponseTransactions = IResponse<TransactionResponseMessage>;
 
 export const editTransaction = createAsyncThunk<
   void,
@@ -25,6 +28,6 @@ export const editTransaction = createAsyncThunk<
   const { data } = (await response.json()) as ReponseTransactions;
 
   if (data) {
-    thunkAPI.dispatch(updateTransaction(transaction));
+    thunkAPI.dispatch(transactionsList());
   }
 });
