@@ -3,10 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form } from 'react-bootstrap';
 import * as yup from 'yup';
-import {
-  UserRegistrationResponse,
-  IUserRegistration,
-} from '../../../types/users';
+import { UserRegistrationResponse, IUserData } from '../../../types/users';
 
 const userRegistrationSchema = yup
   .object({
@@ -30,11 +27,11 @@ export default function SignUp() {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<IUserRegistration>({
+  } = useForm<IUserData>({
     resolver: yupResolver(userRegistrationSchema),
   });
   const fetchSignUp = async (
-    payload: IUserRegistration
+    payload: IUserData
   ): Promise<UserRegistrationResponse> => {
     const response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/api/auth/signup`,
@@ -50,7 +47,7 @@ export default function SignUp() {
     return result;
   };
 
-  const onSubmit = (data: IUserRegistration) => {
+  const onSubmit = (data: IUserData) => {
     const { confirmPassword, ...payload } = data;
     fetchSignUp(payload).then((response) => {
       if (response.error) {

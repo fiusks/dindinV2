@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form } from 'react-bootstrap';
 import * as yup from 'yup';
-import { UserLogin } from '../../../types/users';
+import { IUserLoginData } from '../../../types/users';
 import { useAppDispatch } from '../../../app/hooks';
 import { userLogin } from '../userSlice';
 import { useNavigate } from 'react-router-dom';
@@ -29,11 +29,11 @@ export default function SignUp() {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<UserLogin>({
+  } = useForm<IUserLoginData>({
     resolver: yupResolver(userRegistrationSchema),
   });
 
-  const onSubmit = async (payload: UserLogin) => {
+  const onSubmit = async (payload: IUserLoginData) => {
     const resultAction = await dispatch(userLogin(payload));
     if (userLogin.fulfilled.match(resultAction)) {
       toast.success('Usuário logado com sucesso');

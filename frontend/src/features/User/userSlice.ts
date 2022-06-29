@@ -3,7 +3,7 @@ import { RootState } from '../../app/store';
 import {
   IUserLoginError,
   UserDataResponse,
-  UserLogin,
+  IUserLoginData,
 } from '../../types/users';
 
 const initialState: UserDataResponse = {
@@ -13,7 +13,7 @@ const initialState: UserDataResponse = {
 
 export const userLogin = createAsyncThunk<
   UserDataResponse,
-  UserLogin,
+  IUserLoginData,
   {
     rejectValue: IUserLoginError;
   }
