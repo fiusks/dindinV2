@@ -76,7 +76,13 @@ export default function TransactionModal(props: Props) {
 
   return (
     <>
-      <Modal show={show} onHide={onHide} backdrop="static" keyboard={false}>
+      <Modal
+        show={show}
+        onHide={onHide}
+        backdrop="static"
+        centered
+        keyboard={false}
+      >
         <Modal.Header closeButton>
           <h2>{`${title} Registro`}</h2>
         </Modal.Header>
@@ -144,11 +150,11 @@ export default function TransactionModal(props: Props) {
               />
               <Form.Text>{errors.description?.message}</Form.Text>
             </Form.Group>
-            <div className="form-group">
+            <Form.Group className="btn-group">
               <button type="submit" className="btn btn-primary">
                 Registrar
               </button>
-            </div>
+            </Form.Group>
           </Form>
         </Modal.Body>
       </Modal>

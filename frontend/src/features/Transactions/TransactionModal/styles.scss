@@ -1,8 +1,5 @@
 .modal-content{
-  padding: 6rem;
-  background: #FFFFFF;
-  border-radius: 20px;
-  width: 60rem;
+  padding: 2rem;
   .modal-header{
     border-bottom: none;
   }
@@ -10,27 +7,25 @@
   font-style: normal;
   h2{
     font-weight: 700;
-    font-size: 36px;
+    font-size: 2rem;
     line-height: 43px;
     color: #000000;
   }
   .btn-close{
-    font-size: 20px;
-
+    font-size: 1.2rem;
   }
   .form-label{
-
     font-weight: 500;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 28px;
     color: #484848;
     margin-bottom: 0.8rem;
   }
   input{
-    height: 6.4rem;
+    height: 4rem;
     margin-bottom: 2.6rem;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 1.8rem;
     line-height: 21px;
     color: #000000;
     text-indent: 1rem;
@@ -76,22 +71,22 @@
         background: linear-gradient(91.26deg, #05EDE3 0%, #3A9FF1 97.77%);
       }
   }
-    }
-    .submit-btn{
-      display: flex;
-      justify-content: center;
-      .btn{
-        background: #645FFB;
-        border-radius: 5px;
-        height: 4rem;
-        width: 50%;
-        margin: 0px auto;
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 17px;
-      }
+}
+.btn-group{
+  display: flex;
 
+  .btn{
+    background: #645FFB;
+    border-radius: 5px;
+    height: 4rem;
+
+    margin: 0px auto;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
     }
+}
+
 
 }
 
