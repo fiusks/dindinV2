@@ -81,7 +81,7 @@
     text-align: center;
     color: #FFFFFF;
   }
-  @include media-breakpoint-up(sm){
+  @include media-breakpoint-down(lg){
     .resume-container{
       padding: 2.5rem 5rem 1.5rem 5rem;
       h3{

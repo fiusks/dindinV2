@@ -1,4 +1,7 @@
+@import "~bootstrap/scss/bootstrap";
+
 .user-form-container{
+  height:100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,13 +13,40 @@
     margin-top: 5rem;
   }
   h2{
+    font-size: 3rem;
     margin-bottom: 2rem;
   }
+  label{
+    font-size: 1.5rem;
+  }
   input {
-    height: 2rem;
+    height: 2.5rem;
     min-width: 20rem;
+  &[type='text']{
+    font-size: 1.5rem;
+  }
   }
   button{
     width: 100%;
   }
+}
+@include media-breakpoint-up(sm){
+  .user-form-container{
+    &.signup{
+      margin-top: 10rem;
+    }
+    &.signin{
+      margin-top: 13rem;
+    }
+    font-size: 200%;
+    input {
+      height: 4rem;
+      min-width: 30rem;
+    }
+    button{
+      font-size: 2.5rem;
+    }
+
+  }
+
 }
