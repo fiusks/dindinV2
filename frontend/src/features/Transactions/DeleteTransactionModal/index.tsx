@@ -20,12 +20,12 @@ export default function DeleteModal({ id }: Props) {
   };
 
   return (
-    <>
+    <div className="delete-modal-icon">
       <img src={deleteIcon} alt="delete Icon" onClick={handleShow} />
 
       {show && (
         <div className="delete-modal-container">
-          <img src={arrowUp} alt="arrow Up" />
+          <img src={arrowUp} alt="arrow Up" className="arrow-icon" />
           <p>Apagar Item?</p>
           <div className="buttons-container">
             <button onClick={handleSubmit} className="accept-btn">
@@ -37,6 +37,6 @@ export default function DeleteModal({ id }: Props) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
