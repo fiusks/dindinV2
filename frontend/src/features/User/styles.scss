@@ -1,0 +1,22 @@
+.user-form-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  &.signin{
+    margin-top: 8rem;
+  }
+  &.signup{
+    margin-top: 5rem;
+  }
+  h2{
+    margin-bottom: 2rem;
+  }
+  input {
+    height: 2rem;
+    min-width: 20rem;
+  }
+  button{
+    width: 100%;
+  }
+}
