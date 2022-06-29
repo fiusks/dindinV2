@@ -15,10 +15,9 @@ function filterUniqueCategory(transactions: TransactionDocument[]): string[] {
   const onlyCategories = transactions.map((transaction) =>
     transaction.category.toLowerCase()
   );
-  const uniqueCategories = Array.from(new Set(onlyCategories));
-  for (let category of uniqueCategories) {
-    category = firstLetterUppercase(category);
-  }
+  const uniqueCategories = Array.from(new Set(onlyCategories)).map(
+    (category) => (category = firstLetterUppercase(category))
+  );
 
   return uniqueCategories;
 }
@@ -58,7 +57,8 @@ export const filtersSlice = createSlice({
       state,
       { payload }: PayloadAction<TransactionDocument[]>
     ) => {
-      state.categories = filterUniqueCategory(payload);
+      const transactionsCategories = filterUniqueCategory(payload);
+      state.categories = transactionsCategories;
     },
     updateActiveFilters: (
       state,
