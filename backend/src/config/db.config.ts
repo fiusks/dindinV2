@@ -19,11 +19,4 @@ const config:Knex.Config={
 }
 const knexInstance = knex(config)
 
-knexInstance.on('query', (query) => {
-  console.log(`Executed a query: ${query.__knexQueryUid}`);
-})
-.on('query-response', (response, query) => {
-  console.log(`Received a response from: ${query.__knexQueryUid}`);
-})
-
 export default knexInstance
