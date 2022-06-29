@@ -1,23 +1,20 @@
-@import "../../App.scss";
+@import "~bootstrap/scss/bootstrap";
 
-.resume-col{
+.transactions-component-container{
   display: flex;
-  justify-content: center;
-  max-height: 20rem;
-  margin-top: 6.3rem;
-
+  flex-direction: column;
+  ;
 }
-@include media-breakpoint-down(lg){
-  .resume-col{
-    margin-bottom: 15rem;
+
+@include media-breakpoint-up(md){
+  .transactions-component-container{
+    flex-direction: row-reverse;
+    padding-top: 5rem
   }
- .home-container{
-   flex-wrap: wrap-reverse;
- }
- @include media-breakpoint-down(md){
-   .tHide{
-     display: none;
-   }
- }
+}
+@include media-breakpoint-down(sm){
+  .tHide{
+    display: none;
+  }
 }
 
