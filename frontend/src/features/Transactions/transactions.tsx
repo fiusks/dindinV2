@@ -26,7 +26,9 @@ export default function Transactions() {
   }, [filters.activeFilters]);
 
   useEffect(() => {
-    dispatch(updateCategories(transactions.data));
+    if (transactions?.data) {
+      dispatch(updateCategories(transactions.data));
+    }
   }, [transactions.data.length]);
 
   return (
