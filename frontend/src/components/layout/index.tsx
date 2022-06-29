@@ -5,6 +5,7 @@ import { Outlet, Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { selectUser, userLogout } from '../../features/User/userSlice';
 import { ToastContainer } from 'react-toastify';
+import logoutIcon from '../../assets/images/logout.png';
 
 export default function Layout() {
   const user = useAppSelector(selectUser);
@@ -12,28 +13,28 @@ export default function Layout() {
 
   return (
     <Container fluid className="h-100 p-0">
-      <Navbar bg="light" className="layout-header w-100">
-        <Container fluid className="navbar-content">
+      <Navbar className="navbar-background">
+        <Container fluid>
           <Navbar.Brand
             as={Link}
             to={user.data.accessToken ? '/transactions' : '/'}
           >
             <img alt="app logo" src={logo} />
-            DinDin
+            Dindin
           </Navbar.Brand>
           <Nav>
             {!user.data.accessToken ? (
               <>
-                <Nav.Link as={Link} to="signIn">
-                  Sign In
-                </Nav.Link>
                 <Nav.Link as={Link} to="signUp">
-                  Sign Up
+                  Registrar
+                </Nav.Link>
+                <Nav.Link as={Link} to="signIn">
+                  Log In
                 </Nav.Link>
               </>
             ) : (
               <Nav.Link as={Link} to="/" onClick={() => dispatch(userLogout())}>
-                Logout
+                <img src={logoutIcon} alt="logout icon" />
               </Nav.Link>
             )}
           </Nav>
