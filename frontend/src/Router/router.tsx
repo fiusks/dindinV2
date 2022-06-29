@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import Layout from './components/layout';
-import SignIn from './features/User/signIn';
-import SignUp from './features/User/signUp';
-import PrivateRoute from './helpers/PrivateRoute';
-import Home from './features/Home';
-import Transactions from './features/Transactions/transactions';
+import Layout from '../components/layout';
+import SignIn from '../features/User/signIn';
+import SignUp from '../features/User/signUp';
+import PrivateRoute from '../helpers/PrivateRoute';
+import Home from '../features/Home';
+import Transactions from '../features/Transactions/transactions';
 
 export default function Router() {
   return (
