@@ -13,8 +13,3 @@ export function weekdayFormat(date: string) {
   const formatedDate = weekday[0].toUpperCase() + weekday.substring(1);
   return formatedDate.replace('-feira', '');
 }
-
-export function firstLetterUppercase(param: string) {
-  const formatedWord = param[0].toUpperCase() + param.substring(1);
-  return formatedWord;
-}
