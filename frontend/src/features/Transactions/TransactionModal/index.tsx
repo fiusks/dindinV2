@@ -152,7 +152,7 @@ export default function TransactionModal(props: Props) {
             </Form.Group>
             <Form.Group className="btn-group">
               <button type="submit" className="btn btn-primary">
-                Registrar
+                {title.toUpperCase()}
               </button>
             </Form.Group>
           </Form>
