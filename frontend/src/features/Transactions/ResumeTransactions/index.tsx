@@ -1,5 +1,5 @@
 import './styles.scss';
-import { Row, Col } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { useAppSelector } from '../../../app/hooks';
 import { selectTransactions } from '../transactionsSlice';
 import AddTransaction from '../AddTransactionModal';
@@ -28,28 +28,22 @@ export default function ResumeTransactions() {
       <div className="resume-container">
         <h3>Resumo</h3>
         <Row>
-          <Col>
+          <div className="resume-data-row">
             <h4>Entradas</h4>
-          </Col>
-          <Col>
             <h4 className="credit">{`R$ ${income.toFixed(2)}`}</h4>
-          </Col>
+          </div>
         </Row>
         <Row>
-          <Col>
+          <div className="resume-data-row">
             <h4>Saídas</h4>
-          </Col>
-          <Col>
             <h4 className="debit">{`R$ ${outcome.toFixed(2)}`}</h4>
-          </Col>
+          </div>
         </Row>
         <Row className="balance-row">
-          <Col>
+          <div className="resume-data-row">
             <h4 className="balance">Saldo</h4>
-          </Col>
-          <Col>
             <h4 className="balance-value">{`R$ ${balance.toFixed(2)}`}</h4>
-          </Col>
+          </div>
         </Row>
       </div>
       <AddTransaction />
