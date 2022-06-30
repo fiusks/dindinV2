@@ -1,12 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { TransactionListResponse } from '../../types/transactions';
-import { getToken } from '../../helpers/Auth/authHeader';
 import { IActiveFilters, IFilterOptions } from '../../types/filter';
 import { listTransactions } from '../Transactions/transactionsSlice';
 import { IResponse } from '../../types/api';
-
-const token = getToken();
 
 type ReponseTransactions = IResponse<TransactionListResponse>;
 
@@ -31,7 +28,7 @@ export const listFilteredTransactions = createAsyncThunk<
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${thunkAPI.getState().user.data.accessToken}`,
       },
       body: JSON.stringify(activeFilters),
     }

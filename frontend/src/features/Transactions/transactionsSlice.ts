@@ -4,11 +4,8 @@ import {
   TransactionDocument,
   TransactionListResponse,
 } from '../../types/transactions';
-import { getToken } from '../../helpers/Auth/authHeader';
 import { updateCategories } from '../Filter/filtersSlice';
 import { IResponse } from '../../types/api';
-
-const token = getToken();
 // interface ITransactionAPI {
 //   method: 'GET' | 'PUT' | 'DELETE';
 //   transactionID: string;
@@ -39,25 +36,31 @@ const initialState: transactionsReducer = {
   data: [],
 };
 
-export const transactionsList = createAsyncThunk(
-  'transactions/listTransactions',
-  async (_, thunkAPI) => {
-    const response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/transactions`,
-      {
-        method: 'GET',
-        headers: {
-          'content-type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const { data } = (await response.json()) as ReponseTransactions;
-    thunkAPI.dispatch(listTransactions(data.transactions));
-    thunkAPI.dispatch(updateCategories(data.categories));
-    return;
+export const transactionsList = createAsyncThunk<
+  void,
+  void,
+  { state: RootState }
+>('transactions/listTransactions', async (_, thunkAPI) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/transactions`,
+    {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${thunkAPI.getState().user.data.accessToken}`,
+      },
+    }
+  );
+
+  const transactions = (await response.json()) as ReponseTransactions;
+  console.log(transactions);
+  if (transactions?.data) {
+    thunkAPI.dispatch(listTransactions(transactions.data.transactions));
+    thunkAPI.dispatch(updateCategories(transactions.data.categories));
   }
-);
+
+  return;
+});
 
 export const transactionsSlice = createSlice({
   name: 'transactions',

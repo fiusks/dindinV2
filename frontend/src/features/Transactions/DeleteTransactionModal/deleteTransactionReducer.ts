@@ -1,10 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TransactionResponseMessage } from '../../../types/transactions';
-import { getToken } from '../../../helpers/Auth/authHeader';
 import { transactionsList } from '../transactionsSlice';
 import { IResponse } from '../../../types/api';
 import { RootState } from '../../../app/store';
-const token = getToken();
 
 type ReponseTransactions = IResponse<TransactionResponseMessage>;
 
@@ -19,12 +17,12 @@ export const deleteTransactionById = createAsyncThunk<
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${thunkAPI.getState().user.data.accessToken}`,
       },
     }
   );
-  const { data } = (await response.json()) as ReponseTransactions;
-  if (data) {
+  const deleteTransaction = (await response.json()) as ReponseTransactions;
+  if (deleteTransaction) {
     thunkAPI.dispatch(transactionsList());
   }
 });

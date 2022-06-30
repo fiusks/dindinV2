@@ -3,16 +3,16 @@ import {
   TransactionDocument,
   TransactionResponseMessage,
 } from '../../../types/transactions';
-import { getToken } from '../../../helpers/Auth/authHeader';
 import { transactionsList } from '../transactionsSlice';
 import { IResponse } from '../../../types/api';
-const token = getToken();
+import { RootState } from '../../../app/store';
 
 type ReponseTransactions = IResponse<TransactionResponseMessage>;
 
 export const editTransaction = createAsyncThunk<
   void,
-  Omit<TransactionDocument, 'weekday'>
+  Omit<TransactionDocument, 'weekday'>,
+  { state: RootState }
 >('transactions/editTransaction', async (transaction, thunkAPI) => {
   const response = await fetch(
     `${process.env.REACT_APP_BASE_URL}/transactions/${transaction.id}`,
@@ -20,7 +20,7 @@ export const editTransaction = createAsyncThunk<
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${thunkAPI.getState().user.data.accessToken}`,
       },
       body: JSON.stringify(transaction),
     }

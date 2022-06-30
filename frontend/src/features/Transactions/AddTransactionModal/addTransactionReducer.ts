@@ -3,16 +3,16 @@ import {
   TransactionDocument,
   transactionRegistration,
 } from '../../../types/transactions';
-import { getToken } from '../../../helpers/Auth/authHeader';
 import { transactionsList } from '../transactionsSlice';
 import { IResponse } from '../../../types/api';
-const token = getToken();
+import { RootState } from '../../../app/store';
 
 type ReponseTransactionID = IResponse<Pick<TransactionDocument, 'id'>>;
 
 export const addTransactionAPI = createAsyncThunk<
   void,
-  transactionRegistration
+  transactionRegistration,
+  { state: RootState }
 >('transactions/addTransaction', async (newTransaction, thunkAPI) => {
   const response = await fetch(
     `${process.env.REACT_APP_BASE_URL}/transactions`,
@@ -20,16 +20,14 @@ export const addTransactionAPI = createAsyncThunk<
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${thunkAPI.getState().user.data.accessToken}`,
       },
       body: JSON.stringify(newTransaction),
     }
   );
-  const {
-    data: { id },
-  }: ReponseTransactionID = await response.json();
+  const addResponse: ReponseTransactionID = await response.json();
 
-  if (id) {
+  if (addResponse?.data?.id) {
     thunkAPI.dispatch(transactionsList());
   }
 });
