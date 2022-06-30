@@ -31,7 +31,6 @@ export const signUp:UserRegisterRequestHandler =async (req,res) => {
 export const signIn:UserLoginHandler = async(req,res)=>{
   const {email,password} = req.body
   const secret = process.env.JWT_SECRET!
-  console.log('entrei')
   try {
     const user = await knexInstance("users").where({email}).first() as IUserData
 
