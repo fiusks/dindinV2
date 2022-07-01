@@ -93,7 +93,7 @@ A aplicação original do desafio possuia layout apenas para a web, mas ao final
 ### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/main.png" width="400px">
+  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/main.png">
 
 </p>
 
