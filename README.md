@@ -6,24 +6,23 @@
     Uma ferramenta de gerenciamento de gastos
 </h3>
 </br>
+<a href='https://mydindin.netlify.app/'>
+<img alt='dindin app main page' src="./assets/main.jpg">
+</a>
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/fiusks/dindinV2?color=%2304D361">
+  <img alt="typescript logo" src="https://img.shields.io/badge/-TypeScript-grey?style=flat-square&logo=typescript">
+  <img alt="react logo" src="https://img.shields.io/badge/-React-grey?style=flat-square&logo=react">
+  <img alt="node logo" src="https://img.shields.io/badge/-Nodejs-grey?style=flat-square&logo=Node.js">
+  <img alt="redux logo" src="https://img.shields.io/badge/-Redux-grey?style=flat-square&logo=Redux">
+  <img alt="postgresql logo" src="https://img.shields.io/badge/-PostgreSQL-grey?style=flat-square&logo=postgresql">
+  <img alt="bootstrap logo" src="https://img.shields.io/badge/-Bootstrap-grey?style=flat-square&logo=bootstrap">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/fiusks/dindinV2">
-
-  <a href="https://www.twitter.com/tgmarinho/">
-    <img alt="LinkedIn" src="https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Ftgmarinho%2FREADME-ecoleta">
-  </a>
-  
   <a href="https://github.com/fiusks/dindinV2/commits/master">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/fiusks/dindinV2">
   </a>
     
-   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
-   <a href="https://github.com/fiusks/dindinV2/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/fiusks/dindinV2?style=social">
-  </a>  
+   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen"> 
  
 </p>
 
@@ -32,23 +31,22 @@
 <!--ts-->
 
 - [Sobre o projeto](#-sobre-o-projeto)
-- [Funcionalidades](#-funcionalidades)
+- [Funcionalidades](#Funcionalidades)
 - [Layout](#-layout)
   - [Mobile](#mobile)
   - [Web](#web)
-- [Como executar o projeto](#-como-executar-o-projeto)
+- [Como executar o projeto](#como-executar-o-projeto)
   - [Pré-requisitos](#pré-requisitos)
-  - [Rodando o Backend (servidor)](#user-content--rodando-o-backend-servidor)
-  - [Rodando a aplicação web (Frontend)](#user-content--rodando-a-aplicação-web-frontend)
-- [Tecnologias](#-tecnologias)
-  - [Frontend](#user-content-website--react----typescript)
-  - [Backend](#user-content-server--nodejs----typescript)
-  - [Mobile](#user-content-mobile--react-native----typescript)
-- [Autor](#-autor)
-- [Licença](#user-content--licença)
+  - [Rodando o Backend (servidor)](#rodando-o-backend-servidor)
+  - [Rodando a aplicação web (Frontend)](#rodando-a-aplicação-web-frontend)
+- [Tecnologias](#tecnologias)
+  - [Frontend](#frontend-react--typescript)
+  - [Backend](#server--nodejs----typescript)
+- [Autor](#autor)
+- [Licença](#licença)
 <!--te-->
 
-## 💻 Sobre o projeto
+## Sobre o projeto
 
 **Dindin** - é um gerenciador de gastos que permite o registro de transações financeiras de forma que os usuários possam acompanhar seu saldo e filtrar transações.
 
@@ -78,24 +76,25 @@ Após a conclusão do curso, resolvi refatorar o código utilizando **Typescript
   - Categoria
   - Valor máximo
   - Valor mínimo
-- [x]
 
 ---
+
+## Layout
+
+A aplicação original do desafio possuia layout apenas para a web, mas ao final da refatoração, tornei o app responsivo para ser funcional em dispositivos mobile.
 
 ### Mobile
 
 <p align="center">
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/home-mobile.png" width="200px">
-
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/detalhes-mobile.svg" width="200px">
+  <p align="center">
+  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/mobile-app.jpg" width="200px">
 </p>
 
 ### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/web.svg" width="400px">
+  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/main.jpg" width="400px">
 
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/sucesso-web.svg" width="400px">
 </p>
 
 ---
@@ -107,13 +106,20 @@ Este projeto é divido em duas partes:
 1. Backend
 2. Frontend
 
-💡Para o Frontend funcionar corretamente, é necessário que servido já esteja rodando
+💡Para o Frontend funcionar corretamente, é necessário que o servidor já esteja rodando.
 
 ### Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
-Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+Além disso, será necessario criar o banco de dados de acordo com o [schema](./backend/schema.sql) na pasta do backend.
+
+Para o projeto, foi utilizado o PostgreSQL juntamente com o Knex.
+
+> Ver documentação [Knex](http://knexjs.org/guide/#configuration-options)
+
+Após criar o do banco de dados, atentar para a criação do arquivo **.env** e o seu preenchimento de acordo com o arquivo [.env.example](./backend/.env.example)
 
 #### Rodando o Backend (servidor)
 
@@ -128,16 +134,14 @@ $ cd backend
 # Instale as dependências
 $ npm install
 
-# Criar o arquivo .env e preencher os dados para acessar o banco de dados
-$ touch .env
-
 # Execute a aplicação em modo de desenvolvimento
 $ npm run dev
 
-# Antes de executar a aplicação, deve
 # O servidor inciará na porta:3001 - acesse http://localhost:3001
 
 ```
+
+> **Para mais informações, acessar a documentação específica do [backend](./backend/README.md)**
 
 #### Rodando o Frontend (cliente)
 
@@ -158,6 +162,8 @@ $ npm run start
 # A aplicação será aberta na porta:3000 - acesse http://localhost:3000
 
 ```
+
+> **Para mais informações, acessar a documentação específica do [frontend](./frontend/README.md)**
 
 ---
 
@@ -210,7 +216,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ## 📝 Licença
 
-Este projeto esta sobe a licença [MIT](./LICENSE).
+Este projeto está sobe a licença [MIT](./LICENSE).
 
 ---
 
