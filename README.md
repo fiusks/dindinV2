@@ -32,7 +32,7 @@
 
 - [Sobre o projeto](#-sobre-o-projeto)
 - [Funcionalidades](#Funcionalidades)
-- [Layout](#-layout)
+- [Layout](#layout)
   - [Mobile](#mobile)
   - [Web](#web)
 - [Como executar o projeto](#como-executar-o-projeto)
