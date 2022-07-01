@@ -3,9 +3,8 @@
 </h1>
 
 <h3 align="center">
-    Uma ferramenta de gerenciamento de gastos
+    It is transaction management project built with as part of the final assesment of the third module of the curse of Software Developement from Cubos Academy.
 </h3>
-</br>
 
 <p align="center">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/fiusks/dindinV2?color=%2304D361">
@@ -26,6 +25,10 @@
   </a>  
  
 </p>
+
+<h4 align="center">
+	🚧   Concluído 🚀 🚧
+</h4>
 
 # Tabela de conteúdos
 
@@ -50,35 +53,38 @@
 
 ## 💻 Sobre o projeto
 
-**Dindin** - é um gerenciador de gastos que permite o registro de transações financeiras de forma que os usuários possam acompanhar seu saldo e filtrar transações.
+Dindin - é um gerenciador de gastos que permite o que pessoas registre os seus gastos e receitas de forma que possam acompanhar suas finanças.
 
-O projeto original foi desenvolvido durante o 4º módulo do curso de Desenvolvimento de Software oferecido pela [Cubos Academy](https://cubos.academy/), tendo como objetivo praticar React utilizando **Javascript** e **React Context**.
-
-Após a conclusão do curso, resolvi refatorar o código utilizando **Typescript** e **Redux**, além de implementar responsividade utilizando o princípio mobile first.
+O projeto foi desenvolvido durante o 4º módulo do curso de Desenvolvimento de Software oferecido pela [Cubos Academy](https://cubos.academy/) e refatorado utilizando Typescript e Redux.
 
 ---
 
-## Funcionalidades
+## ⚙️ Funcionalidades
 
-- [x] Usuários podem se cadastrar na plataforma enviando:
+- [x] Usuários podem se cadastrar na plataforma web enviando:
 
-  - Nome
-  - Sobrenome
-  - E-mail
-  - Senha
+  - [x] Nome
+  - [x] Sobrenome
+  - [x] Email
+  - [x] Senha
 
-- [x] Usuários cadastrados podem adicionar, deletar e editar transações com as seguintes informações:
-  - Tipo: "Débito ou Crédito"
-  - Valor
-  - Categoria
-  - Data
-  - Descrição
-- [x] Usuários cadastrados podem filtrar transações de acordo com o seguintes critérios:
-  - Dia da semana
-  - Categoria
-  - Valor máximo
-  - Valor mínimo
-- [x]
+- [x] Usuários cadastrados podem desempenhar as seguintes funções:
+  - [x] Adicionar uma nova transação com os seguintes valores:
+    - [x] Tipo: "Débito" ou Crédito
+    - [x] Valor
+    - [x] Categoria
+    - [x] Data
+    - [x] Descrição
+  - [x] Editar transação
+  - [x] Deletar Transação
+  - [x] Filtrar Transação de acordo com o seguintes critérios:
+    - [x] Dia da semana
+    - [x] Categoria
+    - [x] Valor máximo
+    - [x] Valor mínimo
+- [x] Os usuários tem acesso ao aplicativo móvel, onde podem:
+  - [x] navegar pelo mapa para ver as instituições cadastradas
+  - [x] entrar em contato com a entidade através do E-mail ou do WhatsApp
 
 ---
 
@@ -104,8 +110,8 @@ Após a conclusão do curso, resolvi refatorar o código utilizando **Typescript
 
 Este projeto é divido em duas partes:
 
-1. Backend
-2. Frontend
+1. Backend (pasta server)
+2. Frontend (pasta web)
 
 💡Para o Frontend funcionar corretamente, é necessário que servido já esteja rodando
 
@@ -128,13 +134,9 @@ $ cd backend
 # Instale as dependências
 $ npm install
 
-# Criar o arquivo .env e preencher os dados para acessar o banco de dados
-$ touch .env
-
 # Execute a aplicação em modo de desenvolvimento
-$ npm run dev
+$ npm run de
 
-# Antes de executar a aplicação, deve
 # O servidor inciará na porta:3001 - acesse http://localhost:3001
 
 ```
