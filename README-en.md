@@ -184,7 +184,7 @@ $ npm run start
 - **[Saas](https://sass-lang.com/)**
 - **[Yup](https://github.com/jquense/yup)**
 
-> Check the file [package.json](https://github.com/fiusks/dindinV2/blob/main/frontend/package.json)
+> Check the [package.json](https://github.com/fiusks/dindinV2/blob/main/frontend/package.json) file
 
 #### **Backend** ([NodeJS](https://nodejs.org/en/) + [TypeScript](https://www.typescriptlang.org/))
 
@@ -200,7 +200,7 @@ $ npm run start
 - **[pg](https://github.com/brianc/node-postgres)**
 - **[Yup](https://github.com/jquense/yup)**
 
-> Check the file [package.json](https://github.com/fiusks/dindinV2/blob/main/backend/package.json)
+> Check the [package.json](https://github.com/fiusks/dindinV2/blob/main/backend/package.json) file
 
 ---
 
