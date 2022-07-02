@@ -221,7 +221,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ---
 
-## 📝 Licença
+## Licença
 
 Este projeto está sobe a licença [MIT](./LICENSE).
 

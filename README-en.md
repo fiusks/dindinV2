@@ -45,7 +45,7 @@
   - [Frontend (Client)](#frontend-client)
 - [Technologies](#technologies)
   - [Frontend](#frontend-react--typescript)
-  - [Backend](#backend-nodejs----typescript)
+  - [Backend](#backend-nodejs--typescript)
 - [Author](#author)
 - [License](#license)
 <!--te-->
@@ -216,7 +216,7 @@ $ npm run start
 
 ---
 
-## 📝 License
+## License
 
 This project is under [MIT](./LICENSE) license.
 
