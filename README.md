@@ -33,8 +33,6 @@
 
 # Tabela de conteúdos
 
-Frontend (React + TypeScript)
-
 <!--ts-->
 
 - [Sobre o projeto](#sobre-o-projeto)
