@@ -3,8 +3,13 @@
 </h1>
 
 <h3 align="center">
-    Uma ferramenta de gerenciamento de gastos
+    Uma ferramenta de gerenciamento financeiro pessoal.
 </h3>
+<div align="center">
+
+[![en](https://img.shields.io/badge/lang-en-red.svg)](./README-en.md) [![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](./README.md)
+
+</div>
 </br>
 <a href='https://mydindin.netlify.app/'>
 <img alt='dindin app main page' src="./assets/main.png">
@@ -28,20 +33,22 @@
 
 # Tabela de conteúdos
 
+Frontend (React + TypeScript)
+
 <!--ts-->
 
-- [Sobre o projeto](#-sobre-o-projeto)
-- [Funcionalidades](#Funcionalidades)
+- [Sobre o projeto](#sobre-o-projeto)
+- [Funcionalidades](#funcionalidades)
 - [Layout](#layout)
   - [Mobile](#mobile)
   - [Web](#web)
 - [Como executar o projeto](#como-executar-o-projeto)
   - [Pré-requisitos](#pré-requisitos)
   - [Rodando o Backend (servidor)](#rodando-o-backend-servidor)
-  - [Rodando a aplicação web (Frontend)](#rodando-a-aplicação-web-frontend)
+  - [Rodando a aplicação web (Frontend)](<#Rodando-a-aplicação-web-(Frontend)>)
 - [Tecnologias](#tecnologias)
   - [Frontend](#frontend-react--typescript)
-  - [Backend](#server--nodejs----typescript)
+  - [Backend](#backend-nodejs--typescript)
 - [Autor](#autor)
 - [Licença](#licença)
 <!--te-->

@@ -1,171 +1,177 @@
 <h1 align="center">
-     <a href="https://mydindin.netlify.app/" alt="site do ecoleta"> Dindin App </a>
+     <a href="https://mydindin.netlify.app/" alt="site do ecoleta"> Dindin App </a> 
 </h1>
-
 <h3 align="center">
-    It is transaction management project built with as part of the final assesment of the third module of the curse of Software Developement from Cubos Academy.
+    It is a personal finance app!
 </h3>
+<div align="center">
+
+[![en](https://img.shields.io/badge/lang-en-red.svg)](./README-en.md) [![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](./README.md)
+
+</div>
+</br>
+<a href='https://mydindin.netlify.app/'>
+<img alt='dindin app main page' src="./assets/main.png">
+</a>
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/fiusks/dindinV2?color=%2304D361">
+  <img alt="typescript logo" src="https://img.shields.io/badge/-TypeScript-grey?style=flat-square&logo=typescript">
+  <img alt="react logo" src="https://img.shields.io/badge/-React-grey?style=flat-square&logo=react">
+  <img alt="node logo" src="https://img.shields.io/badge/-Nodejs-grey?style=flat-square&logo=Node.js">
+  <img alt="redux logo" src="https://img.shields.io/badge/-Redux-grey?style=flat-square&logo=Redux">
+  <img alt="postgresql logo" src="https://img.shields.io/badge/-PostgreSQL-grey?style=flat-square&logo=postgresql">
+  <img alt="bootstrap logo" src="https://img.shields.io/badge/-Bootstrap-grey?style=flat-square&logo=bootstrap">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/fiusks/dindinV2">
-
-  <a href="https://www.twitter.com/tgmarinho/">
-    <img alt="LinkedIn" src="https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Ftgmarinho%2FREADME-ecoleta">
-  </a>
-  
   <a href="https://github.com/fiusks/dindinV2/commits/master">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/fiusks/dindinV2">
   </a>
     
-   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
-   <a href="https://github.com/fiusks/dindinV2/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/fiusks/dindinV2?style=social">
-  </a>  
+   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen"> 
  
 </p>
 
-<h4 align="center">
-	🚧   Concluído 🚀 🚧
-</h4>
-
-# Tabela de conteúdos
+# Table of contents
 
 <!--ts-->
 
-- [Sobre o projeto](#-sobre-o-projeto)
-- [Funcionalidades](#-funcionalidades)
-- [Layout](#-layout)
+- [About](#about)
+- [Features](#features)
+- [Layout](#layout)
   - [Mobile](#mobile)
   - [Web](#web)
-- [Como executar o projeto](#-como-executar-o-projeto)
-  - [Pré-requisitos](#pré-requisitos)
-  - [Rodando o Backend (servidor)](#user-content--rodando-o-backend-servidor)
-  - [Rodando a aplicação web (Frontend)](#user-content--rodando-a-aplicação-web-frontend)
-- [Tecnologias](#-tecnologias)
-  - [Frontend](#user-content-website--react----typescript)
-  - [Backend](#user-content-server--nodejs----typescript)
-  - [Mobile](#user-content-mobile--react-native----typescript)
-- [Autor](#-autor)
-- [Licença](#user-content--licença)
+- [How to run](#how-to-run)
+  - [Requirements](#requirements)
+  - [Backend (Server)](#backend-server)
+  - [Frontend (Client)](#frontend-client)
+- [Technologies](#technologies)
+  - [Frontend](#frontend-react--typescript)
+  - [Backend](#backend-nodejs----typescript)
+- [Author](#author)
+- [License](#license)
 <!--te-->
 
-## 💻 Sobre o projeto
+## About
 
-Dindin - é um gerenciador de gastos que permite o que pessoas registre os seus gastos e receitas de forma que possam acompanhar suas finanças.
+**Dindin** - is a financial manager that records transactions and allow users to track their balance and filter their transactions.
 
-O projeto foi desenvolvido durante o 4º módulo do curso de Desenvolvimento de Software oferecido pela [Cubos Academy](https://cubos.academy/) e refatorado utilizando Typescript e Redux.
+The original project was developed during the 4th module of the Software Development course offered by [Cubos Academy](https://cubos.academy/). During the course, the main goal of the project was to practice React using **Javascript** and **React Props**.
+
+After completing the course, I decided to refactor the code using my **Typescript** and **Redux** skills. I also implemented responsiveness using the mobile first principle.
+
+---
+
+## Features
+
+- [x] Users can register on the platform by seding the following data:
+
+  - Name
+  - Surname
+  - E-mail
+  - Password
+
+- [x] Registered users can add, delete and edit transactions with the following data:
+  - Type: "Debit or Credit"
+  - Amount
+  - Category
+  - Date
+  - Description
+- [x] Registered users can filter transactions according to the following parameters:
+  - Weekday
+  - Category
+  - Max value
+  - Min value
 
 ---
 
-## ⚙️ Funcionalidades
+## Layout
 
-- [x] Usuários podem se cadastrar na plataforma web enviando:
-
-  - [x] Nome
-  - [x] Sobrenome
-  - [x] Email
-  - [x] Senha
-
-- [x] Usuários cadastrados podem desempenhar as seguintes funções:
-  - [x] Adicionar uma nova transação com os seguintes valores:
-    - [x] Tipo: "Débito" ou Crédito
-    - [x] Valor
-    - [x] Categoria
-    - [x] Data
-    - [x] Descrição
-  - [x] Editar transação
-  - [x] Deletar Transação
-  - [x] Filtrar Transação de acordo com o seguintes critérios:
-    - [x] Dia da semana
-    - [x] Categoria
-    - [x] Valor máximo
-    - [x] Valor mínimo
-- [x] Os usuários tem acesso ao aplicativo móvel, onde podem:
-  - [x] navegar pelo mapa para ver as instituições cadastradas
-  - [x] entrar em contato com a entidade através do E-mail ou do WhatsApp
-
----
+The original challenge was not designed for mobile, but during the refactoring process I made it responsive for mobile users.
 
 ### Mobile
 
 <p align="center">
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/home-mobile.png" width="200px">
-
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/detalhes-mobile.svg" width="200px">
+  <p align="center">
+  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/mobile-app.jpg" width="200px">
 </p>
 
 ### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/web.svg" width="400px">
+  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/main.png">
 
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/sucesso-web.svg" width="400px">
 </p>
 
 ---
 
-## Como executar o projeto
+## How to run
 
-Este projeto é divido em duas partes:
+This project contains two parts:
 
-1. Backend (pasta server)
-2. Frontend (pasta web)
+1. Backend
+2. Frontend
 
-💡Para o Frontend funcionar corretamente, é necessário que servido já esteja rodando
+💡For the Frontend to work properly, you need to start the server first.
 
-### Pré-requisitos
+### Requirements
 
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+Before starting, you will the following tools installed on your machine:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
-Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
-#### Rodando o Backend (servidor)
+Besides this, you will need to create a database according to the following [schema](./backend/schema.sql).
+
+For this project, I used PostgreSQL as database, and Knex as a SQL Query Builder tool.
+
+> Check documentation [Knex](http://knexjs.org/guide/#configuration-options)
+
+After creating the database, pay attention to the creation of the **.env** file. You will need to fill it according to the [.env.example](./backend/.env.example) file.
+
+#### Backend (Server)
 
 ```bash
 
-# Clone este repositório
+# Clone this repository
 $ git clone git@github.com:fiusks/dindinV2.git
 
-# Vá para a pasta server
+# Go to the backend folder
 $ cd backend
 
-# Instale as dependências
+# Install needed dependecies
 $ npm install
 
-# Execute a aplicação em modo de desenvolvimento
-$ npm run de
+# Run the app in development mode
+$ npm run dev
 
-# O servidor inciará na porta:3001 - acesse http://localhost:3001
+# The server will start on port :3001 - access http://localhost:3001
 
 ```
 
-#### Rodando o Frontend (cliente)
+> **For more information, access the specific documentation here [backend](./backend/README.md)**
+
+#### Frontend (Client)
 
 ```bash
 
-# Clone este repositório
+# Clone this repository
 $ git clone git@github.com:fiusks/dindinV2.git
 
-# Vá para a pasta da aplicação Front End
+# Go to the frontend folder
 $ cd frontend
 
-# Instale as dependências
+# Install needed dependecies
 $ npm install
 
-# Execute a aplicação em modo de desenvolvimento
+# Run the app in development mode
 $ npm run start
 
-# A aplicação será aberta na porta:3000 - acesse http://localhost:3000
+# The app will start on port :3000 - access http://localhost:3000
 
 ```
+
+> **For more information, access the specific documentation here [frontend](./frontend/README.md)**
 
 ---
 
-## Tecnologias
-
-As seguintes ferramentas foram usadas na construção do projeto:
+## Technologies
 
 #### **Frontend** ([React](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/))
 
@@ -178,9 +184,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - **[Saas](https://sass-lang.com/)**
 - **[Yup](https://github.com/jquense/yup)**
 
-> Veja o arquivo [package.json](https://github.com/fiusks/dindinV2/blob/main/frontend/package.json)
+> Check the file [package.json](https://github.com/fiusks/dindinV2/blob/main/frontend/package.json)
 
-#### [](https://github.com/tgmarinho/Ecoleta#server-nodejs--typescript)**Backend** ([NodeJS](https://nodejs.org/en/) + [TypeScript](https://www.typescriptlang.org/))
+#### **Backend** ([NodeJS](https://nodejs.org/en/) + [TypeScript](https://www.typescriptlang.org/))
 
 - **[Express](https://expressjs.com/)**
 - **[Bycrypt](https://github.com/kelektiv/node.bcrypt.js#readme)**
@@ -194,11 +200,11 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - **[pg](https://github.com/brianc/node-postgres)**
 - **[Yup](https://github.com/jquense/yup)**
 
-> Veja o arquivo [package.json](https://github.com/fiusks/dindinV2/blob/main/backend/package.json)
+> Check the file [package.json](https://github.com/fiusks/dindinV2/blob/main/backend/package.json)
 
 ---
 
-## Autor
+## Author
 
 <a href="https://blog.rocketseat.com.br/author/thiago/">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/68557347?v=4" width="100px;" alt=""/>
@@ -210,12 +216,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ---
 
-## 📝 Licença
+## 📝 License
 
-Este projeto esta sobe a licença [MIT](./LICENSE).
+This project is under [MIT](./LICENSE) license.
 
 ---
-
-## Versões do README
-
-[🇧🇷](./README.md) | [🇺🇸](./README-en.md)
