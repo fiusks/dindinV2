@@ -178,12 +178,12 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 #### **Frontend** ([React](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/))
 
-- **[Day.js](https://github.com/axios/axios)**
-- **[React Bootstrap](https://react-icons.github.io/react-icons/)**
+- **[Day.js](https://day.js.org/)**
+- **[React Bootstrap](https://react-bootstrap.github.io/)**
 - **[React Hook Form](https://react-hook-form.com/)**
 - **[React Router Dom](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom)**
 - **[React Toastfiy](https://github.com/fkhadra/react-toastify)**
-- **[Redux Toolkit](https://github.com/axios/axios)**
+- **[Redux Toolkit](https://redux-toolkit.js.org/)**
 - **[Saas](https://sass-lang.com/)**
 - **[Yup](https://github.com/jquense/yup)**
 
