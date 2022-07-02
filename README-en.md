@@ -216,7 +216,7 @@ $ npm run start
 
 ---
 
-## 📝 License
+## License
 
 This project is under [MIT](./LICENSE) license.
 
