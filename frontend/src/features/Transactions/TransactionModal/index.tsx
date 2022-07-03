@@ -22,10 +22,7 @@ type Props = {
 
 const transactionSchemaschema = yup
   .object({
-    amount: yup
-      .number()
-      .min(0.01, 'O valor deve ser maior que R$ 0,00')
-      .required('O valor da transação é obrigatório'),
+    amount: yup.string().required('O valor da transação é obrigatório'),
     category: yup.string().required('A categoria é obrigatória'),
     date: yup.date().required('A data da transação é obrigatória'),
     description: yup.string().required('Inserir uma descrição'),
@@ -59,6 +56,7 @@ export default function TransactionModal(props: Props) {
 
   const onSubmit = (data: TransactionDocument) => {
     data.date = dayjs(data.date).format('YYYY-MM-DD').toString();
+
     if (id) {
       data.id = id;
       dispatch(editTransaction(data));
@@ -113,8 +111,15 @@ export default function TransactionModal(props: Props) {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Valor</Form.Label>
               <input
-                type="text"
-                {...register('amount')}
+                type="number"
+                step="0.01"
+                min="1"
+                {...register('amount', {
+                  min: {
+                    value: 0.01,
+                    message: 'O valor deve ser maior que R$ 1',
+                  },
+                })}
                 className={`form-control ${errors.amount ? 'is-invalid' : ''}`}
               />
               <Form.Text>{errors.amount?.message}</Form.Text>

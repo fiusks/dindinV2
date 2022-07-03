@@ -26,7 +26,7 @@ export default function Transactions() {
   return (
     <Container fluid>
       <Row className="transactions-component-container">
-        <Col sm={12} md={12} lg={4} xl={3} xxl={3}>
+        <Col sm={12} md={12} lg={3} xl={3} xxl={3}>
           <ResumeTransactions />
         </Col>
         <Col>
