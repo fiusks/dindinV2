@@ -40,6 +40,7 @@ export default function Filter() {
   });
 
   const onSubmit = (data: IActiveFilters) => {
+    console.log(Number(data.minValue) * 100);
     dispatch(updateActiveFilters(data));
   };
   const handleCleanFilters = () => {
@@ -111,9 +112,33 @@ export default function Filter() {
               <Form.Label className="filter-title">Valor</Form.Label>
               <Form.Group className="minMax-group">
                 <Form.Label htmlFor="minValue">Min</Form.Label>
-                <input id="minValue" type="text" {...register('minValue')} />
+                <input
+                  id="minValue"
+                  type="number"
+                  min="0.01"
+                  step=".01"
+                  {...register('minValue', {
+                    min: { value: 1, message: 'O valor deve ser maior que 0' },
+                  })}
+                  className={`form-control ${
+                    errors.minValue ? 'is-invalid' : ''
+                  }`}
+                />
+                <Form.Text>{errors.minValue?.message}</Form.Text>
                 <Form.Label htmlFor="maxValue">Max</Form.Label>
-                <input id="maxValue" type="text" {...register('maxValue')} />
+                <input
+                  id="maxValue"
+                  type="number"
+                  min="0.01"
+                  step=".01"
+                  className={`form-control ${
+                    errors.minValue ? 'is-invalid' : ''
+                  }`}
+                  {...register('maxValue', {
+                    min: { value: 1, message: 'O valor deve ser maior que 0' },
+                  })}
+                />
+                <Form.Text>{errors.maxValue?.message}</Form.Text>
               </Form.Group>
             </Col>
 
