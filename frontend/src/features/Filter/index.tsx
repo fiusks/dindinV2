@@ -114,6 +114,7 @@ export default function Filter() {
                 <input
                   id="minValue"
                   type="number"
+                  step="0.01"
                   {...register('minValue', {
                     min: { value: 1, message: 'O valor deve ser maior que 0' },
                   })}
@@ -126,6 +127,7 @@ export default function Filter() {
                 <input
                   id="maxValue"
                   type="number"
+                  step="0.01"
                   className={`form-control ${
                     errors.maxValue ? 'is-invalid' : ''
                   }`}
