@@ -40,7 +40,6 @@ export default function Filter() {
   });
 
   const onSubmit = (data: IActiveFilters) => {
-    console.log(Number(data.minValue) * 100);
     dispatch(updateActiveFilters(data));
   };
   const handleCleanFilters = () => {

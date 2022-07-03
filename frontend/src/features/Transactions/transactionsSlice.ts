@@ -53,7 +53,6 @@ export const transactionsList = createAsyncThunk<
   );
 
   const transactions = (await response.json()) as ReponseTransactions;
-  console.log(transactions);
   if (transactions?.data) {
     thunkAPI.dispatch(listTransactions(transactions.data.transactions));
     thunkAPI.dispatch(updateCategories(transactions.data.categories));
