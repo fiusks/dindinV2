@@ -1,9 +1,32 @@
 .home-text{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   h1{
     font-size: 4.5rem;
+    margin-bottom: 20rem;
+  }
+
+}
+.contact-info{
+  font-size: 2.3rem;
+  color: grey;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  .logos{
+
+    margin-top: 2rem;
+    img{
+      height: 3rem;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
   }
 }
