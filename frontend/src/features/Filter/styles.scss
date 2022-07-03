@@ -90,9 +90,12 @@
         flex-direction: column;
         justify-content: space-around;
         margin-bottom: 3rem;
+
         .minMax-group{
           display: flex;
-
+          small{
+            color: red;
+          }
           label{
             margin-right:0.5rem;
           }
@@ -163,9 +166,13 @@
     align-items: center;
   }
   .action-buttons-container{
-    flex-direction: column;
+    flex-direction: row;
+    align-items: flex-end;
     height: 100%;
-    margin-left:2rem;
+    padding: 1rem !important;
+    button{
+      margin-left: 10rem;
+    }
   }
 }
 
