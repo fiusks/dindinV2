@@ -1,5 +1,4 @@
 import knexInstance from "../config/db.config";
-import { RequestHandler } from "express";
 import { TransactionDocument, TransactionRequestHandler,ITransactionID } from "../models/transactions";
 import dayjs from "dayjs";
 import { getErrorMessage } from "../utils/handleErrors";
@@ -15,10 +14,12 @@ export const listAllTransactions:TransactionRequestHandler = async (req, res)=> 
      throw new Error('Operação não autorizada')
     }
 
+    // otimizar o knex para obter os valores do DB já divido por 100
     const transactions:TransactionDocument[] = await knexInstance("transactions").where('user_id',user_id)
 
     transactions.map((transaction)=>{
      transaction.date=dayjs(transaction.date).format('YYYY-MM-DD').toString()
+     transaction.amount =(transaction.amount/100)
     })
     const categories= transactions.map((transaction)=>transaction.category)
 
@@ -40,7 +41,7 @@ export const createTransaction:TransactionRequestHandler = async (req, res)=> {
       user_id,
       date:new Date(date),
       description,
-      amount:amount,
+      amount:Number(amount)*100,
       category,
       type,
     }
@@ -83,7 +84,7 @@ export const updateTransaction:TransactionRequestHandler = async (req, res)=> {
     const newTransactionData = {
       date,
       description,
-      amount,
+      amount:Number(amount)*100,
       category,
       type,
     }
