@@ -6,14 +6,16 @@ import {TransactionFilters,FilterResponse}from "../models/filters"
 
 export const listFilteredTransactions:FilterResponse = async (req,res)=>{
   try {
+    const {id:user_id} = req.user!
+
     const {categories,minValue,maxValue,weekday} = req.body as TransactionFilters
 
-    await knexInstance('transactions').modify(function(querybuilder){
+    await knexInstance('transactions').where('user_id',user_id).modify(function(querybuilder){
       if(minValue){
-        querybuilder.andWhere('amount','>=',Number(minValue))
+        querybuilder.andWhere('amount','>=',Number(minValue*100))
       }
       if(maxValue){
-        querybuilder.andWhere('amount','<=',Number(maxValue))
+        querybuilder.andWhere('amount','<=',Number(maxValue*100))
       }
       if(categories){
         querybuilder.whereIn('category',categories)
@@ -33,6 +35,9 @@ export const listFilteredTransactions:FilterResponse = async (req,res)=>{
 
     }).then(function(result:TransactionDocument[]){
       const categories = result.map((transaction)=>transaction.category)
+      result.forEach((transaction)=>{
+        transaction.amount=transaction.amount/100
+      })
       return res.status(200).json({data:{
         transactions:result,
         categories
