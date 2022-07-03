@@ -108,15 +108,13 @@ export default function Filter() {
             </Col>
             <div className="vertical-line" />
 
-            <Col className="minMax-filter-container" md={1}>
+            <Col className="minMax-filter-container" md={2} lg={2} xl={1}>
               <Form.Label className="filter-title">Valor</Form.Label>
               <Form.Group className="minMax-group">
                 <Form.Label htmlFor="minValue">Min</Form.Label>
                 <input
                   id="minValue"
                   type="number"
-                  min="0.01"
-                  step=".01"
                   {...register('minValue', {
                     min: { value: 1, message: 'O valor deve ser maior que 0' },
                   })}
@@ -129,10 +127,8 @@ export default function Filter() {
                 <input
                   id="maxValue"
                   type="number"
-                  min="0.01"
-                  step=".01"
                   className={`form-control ${
-                    errors.minValue ? 'is-invalid' : ''
+                    errors.maxValue ? 'is-invalid' : ''
                   }`}
                   {...register('maxValue', {
                     min: { value: 1, message: 'O valor deve ser maior que 0' },
@@ -142,7 +138,7 @@ export default function Filter() {
               </Form.Group>
             </Col>
 
-            <Col md={2}>
+            <Col md={3} lg={2}>
               <Form.Group className="action-buttons-container">
                 <button
                   type="button"
